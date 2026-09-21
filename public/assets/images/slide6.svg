@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bgGrad6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b0326"/>
+      <stop offset="40%" stop-color="#190938"/>
+      <stop offset="100%" stop-color="#2d0859"/>
+    </linearGradient>
+    <radialGradient id="nebula6" cx="40%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="goldText6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.05)"/>
+    </linearGradient>
+    <filter id="glow6">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="url(#bgGrad6)"/>
+  <circle cx="450" cy="400" r="480" fill="url(#nebula6)"/>
+  <g><circle cx="693" cy="210" r="1.9" fill="#ffffff" opacity="0.77" /><circle cx="151" cy="826" r="0.7" fill="#ffffff" opacity="0.63" /><circle cx="456" cy="746" r="1.9" fill="#ffffff" opacity="1.00" /><circle cx="704" cy="496" r="1.7" fill="#ffffff" opacity="0.80" /><circle cx="226" cy="848" r="0.6" fill="#ffffff" opacity="0.38" /><circle cx="161" cy="605" r="2.4" fill="#ffffff" opacity="0.40" /><circle cx="939" cy="958" r="2.2" fill="#ffffff" opacity="0.98" /><circle cx="645" cy="451" r="0.6" fill="#ffffff" opacity="0.70" /><circle cx="653" cy="222" r="2.3" fill="#ffffff" opacity="0.44" /><circle cx="498" cy="946" r="1.7" fill="#ffffff" opacity="0.45" /><circle cx="579" cy="947" r="1.2" fill="#ffffff" opacity="0.49" /><circle cx="1000" cy="420" r="0.4" fill="#ffffff" opacity="0.83" /><circle cx="510" cy="837" r="1.8" fill="#ffffff" opacity="0.34" /><circle cx="193" cy="48" r="1.5" fill="#ffffff" opacity="0.69" /><circle cx="1010" cy="79" r="0.5" fill="#ffffff" opacity="0.70" /><circle cx="547" cy="586" r="0.9" fill="#ffffff" opacity="0.89" /><circle cx="810" cy="174" r="0.5" fill="#ffffff" opacity="0.80" /><circle cx="912" cy="46" r="2.1" fill="#ffffff" opacity="0.69" /><circle cx="655" cy="679" r="0.5" fill="#ffffff" opacity="0.58" /><circle cx="180" cy="891" r="1.0" fill="#ffffff" opacity="0.51" /><circle cx="212" cy="333" r="2.1" fill="#ffffff" opacity="0.78" /><circle cx="873" cy="320" r="1.1" fill="#ffffff" opacity="0.87" /><circle cx="543" cy="909" r="2.2" fill="#ffffff" opacity="0.35" /><circle cx="416" cy="250" r="1.7" fill="#ffffff" opacity="0.89" /><circle cx="593" cy="891" r="1.5" fill="#ffffff" opacity="0.53" /><circle cx="798" cy="180" r="2.0" fill="#ffffff" opacity="0.61" /><circle cx="742" cy="276" r="1.2" fill="#ffffff" opacity="0.71" /><circle cx="374" cy="245" r="0.6" fill="#ffffff" opacity="0.79" /><circle cx="486" cy="779" r="2.3" fill="#ffffff" opacity="0.33" /><circle cx="408" cy="713" r="0.6" fill="#ffffff" opacity="0.94" /><circle cx="944" cy="87" r="2.1" fill="#ffffff" opacity="0.60" /><circle cx="1021" cy="287" r="1.2" fill="#ffffff" opacity="0.84" /><circle cx="963" cy="1019" r="0.9" fill="#ffffff" opacity="0.59" /><circle cx="573" cy="926" r="0.5" fill="#ffffff" opacity="0.86" /><circle cx="784" cy="900" r="2.1" fill="#ffffff" opacity="0.44" /><circle cx="309" cy="706" r="2.1" fill="#ffffff" opacity="0.42" /><circle cx="342" cy="251" r="0.6" fill="#ffffff" opacity="0.43" /><circle cx="239" cy="34" r="0.9" fill="#ffffff" opacity="0.36" /><circle cx="426" cy="538" r="0.8" fill="#ffffff" opacity="0.84" /><circle cx="892" cy="3" r="0.9" fill="#ffffff" opacity="0.35" /><circle cx="212" cy="331" r="1.8" fill="#ffffff" opacity="0.64" /><circle cx="645" cy="74" r="1.3" fill="#ffffff" opacity="0.54" /><circle cx="278" cy="647" r="2.3" fill="#ffffff" opacity="0.46" /><circle cx="520" cy="598" r="0.9" fill="#ffffff" opacity="0.42" /><circle cx="253" cy="876" r="0.6" fill="#ffffff" opacity="0.57" /><circle cx="381" cy="935" r="2.3" fill="#ffffff" opacity="0.42" /><circle cx="257" cy="694" r="1.6" fill="#ffffff" opacity="0.90" /><circle cx="770" cy="885" r="2.0" fill="#ffffff" opacity="0.42" /><circle cx="754" cy="7" r="0.7" fill="#ffffff" opacity="0.56" /><circle cx="945" cy="613" r="1.0" fill="#ffffff" opacity="0.39" /><circle cx="813" cy="372" r="1.3" fill="#ffffff" opacity="0.82" /><circle cx="768" cy="633" r="1.7" fill="#ffffff" opacity="0.79" /><circle cx="585" cy="681" r="1.7" fill="#ffffff" opacity="0.71" /><circle cx="768" cy="454" r="2.3" fill="#ffffff" opacity="0.39" /><circle cx="954" cy="705" r="1.5" fill="#ffffff" opacity="0.60" /><circle cx="193" cy="732" r="2.4" fill="#ffffff" opacity="0.95" /><circle cx="482" cy="1021" r="1.2" fill="#ffffff" opacity="0.77" /><circle cx="163" cy="656" r="1.8" fill="#ffffff" opacity="0.43" /><circle cx="623" cy="320" r="1.8" fill="#ffffff" opacity="0.48" /><circle cx="570" cy="291" r="1.7" fill="#ffffff" opacity="0.36" /><circle cx="1013" cy="255" r="2.4" fill="#ffffff" opacity="0.59" /><circle cx="856" cy="107" r="1.6" fill="#ffffff" opacity="0.78" /><circle cx="836" cy="441" r="1.9" fill="#ffffff" opacity="0.39" /><circle cx="906" cy="708" r="2.0" fill="#ffffff" opacity="0.66" /><circle cx="985" cy="590" r="1.1" fill="#ffffff" opacity="0.43" /><circle cx="707" cy="623" r="2.1" fill="#ffffff" opacity="0.97" /><circle cx="3" cy="405" r="1.8" fill="#ffffff" opacity="0.30" /><circle cx="130" cy="647" r="0.6" fill="#ffffff" opacity="0.84" /><circle cx="902" cy="455" r="1.3" fill="#ffffff" opacity="0.32" /><circle cx="375" cy="30" r="0.7" fill="#ffffff" opacity="0.77" /><circle cx="394" cy="283" r="2.3" fill="#ffffff" opacity="0.66" /><circle cx="424" cy="944" r="1.1" fill="#ffffff" opacity="0.63" /><circle cx="258" cy="408" r="1.7" fill="#ffffff" opacity="0.78" /><circle cx="172" cy="20" r="1.9" fill="#ffffff" opacity="0.97" /><circle cx="300" cy="726" r="1.8" fill="#ffffff" opacity="0.85" /><circle cx="338" cy="820" r="1.5" fill="#ffffff" opacity="0.83" /><circle cx="1002" cy="405" r="1.6" fill="#ffffff" opacity="0.92" /><circle cx="881" cy="505" r="0.8" fill="#ffffff" opacity="0.40" /><circle cx="317" cy="654" r="2.3" fill="#ffffff" opacity="0.43" /><circle cx="954" cy="973" r="1.4" fill="#ffffff" opacity="0.64" /><circle cx="726" cy="550" r="0.7" fill="#ffffff" opacity="0.49" /><circle cx="922" cy="700" r="2.1" fill="#ffffff" opacity="0.69" /><circle cx="251" cy="179" r="1.7" fill="#ffffff" opacity="0.90" /><circle cx="528" cy="66" r="0.9" fill="#ffffff" opacity="0.46" /><circle cx="330" cy="959" r="1.0" fill="#ffffff" opacity="0.68" /><circle cx="507" cy="223" r="2.0" fill="#ffffff" opacity="0.57" /><circle cx="1006" cy="680" r="1.2" fill="#ffffff" opacity="0.64" /><circle cx="404" cy="790" r="0.6" fill="#ffffff" opacity="0.83" /><circle cx="171" cy="471" r="1.4" fill="#ffffff" opacity="0.86" /><circle cx="1016" cy="551" r="1.1" fill="#ffffff" opacity="0.46" /><circle cx="30" cy="454" r="2.1" fill="#ffffff" opacity="0.54" /><circle cx="30" cy="576" r="1.6" fill="#ffffff" opacity="0.39" /><circle cx="659" cy="655" r="1.0" fill="#ffffff" opacity="0.65" /><circle cx="602" cy="984" r="1.9" fill="#ffffff" opacity="0.92" /><circle cx="715" cy="78" r="1.5" fill="#ffffff" opacity="0.57" /><circle cx="844" cy="103" r="0.6" fill="#ffffff" opacity="0.81" /><circle cx="310" cy="873" r="1.7" fill="#ffffff" opacity="0.48" /><circle cx="748" cy="196" r="1.3" fill="#ffffff" opacity="0.89" /><circle cx="730" cy="675" r="1.3" fill="#ffffff" opacity="0.99" /><circle cx="336" cy="759" r="0.8" fill="#ffffff" opacity="0.81" /><circle cx="742" cy="885" r="2.0" fill="#ffffff" opacity="0.51" /><circle cx="887" cy="943" r="2.2" fill="#ffffff" opacity="0.69" /><circle cx="544" cy="40" r="1.3" fill="#ffffff" opacity="0.53" /><circle cx="699" cy="347" r="2.3" fill="#ffffff" opacity="0.61" /><circle cx="187" cy="386" r="0.6" fill="#ffffff" opacity="0.61" /><circle cx="370" cy="566" r="1.9" fill="#ffffff" opacity="0.75" /><circle cx="311" cy="200" r="2.0" fill="#ffffff" opacity="0.31" /><circle cx="412" cy="41" r="2.4" fill="#ffffff" opacity="0.86" /><circle cx="583" cy="419" r="2.2" fill="#ffffff" opacity="0.94" /><circle cx="361" cy="960" r="0.8" fill="#ffffff" opacity="0.96" /><circle cx="166" cy="216" r="1.5" fill="#ffffff" opacity="0.68" /><circle cx="955" cy="944" r="2.0" fill="#ffffff" opacity="0.31" /><circle cx="618" cy="441" r="2.1" fill="#ffffff" opacity="0.81" /><circle cx="784" cy="940" r="0.6" fill="#ffffff" opacity="0.87" /><circle cx="719" cy="720" r="1.8" fill="#ffffff" opacity="0.60" /><circle cx="499" cy="926" r="2.4" fill="#ffffff" opacity="0.73" /><circle cx="1015" cy="213" r="0.6" fill="#ffffff" opacity="0.46" /><circle cx="770" cy="141" r="2.0" fill="#ffffff" opacity="0.63" /><circle cx="37" cy="36" r="1.0" fill="#ffffff" opacity="0.38" /><circle cx="669" cy="474" r="1.1" fill="#ffffff" opacity="0.85" /><circle cx="560" cy="697" r="0.9" fill="#ffffff" opacity="0.81" /><circle cx="533" cy="483" r="2.2" fill="#ffffff" opacity="0.38" /><circle cx="303" cy="921" r="0.6" fill="#ffffff" opacity="0.96" /><circle cx="338" cy="147" r="1.3" fill="#ffffff" opacity="0.46" /><circle cx="478" cy="833" r="0.9" fill="#ffffff" opacity="0.64" /><circle cx="518" cy="109" r="1.4" fill="#ffffff" opacity="0.30" /><circle cx="514" cy="540" r="2.1" fill="#ffffff" opacity="0.44" /><circle cx="274" cy="569" r="1.3" fill="#ffffff" opacity="0.72" /><circle cx="352" cy="361" r="1.9" fill="#ffffff" opacity="0.63" /><circle cx="108" cy="151" r="1.8" fill="#ffffff" opacity="0.85" /><circle cx="43" cy="189" r="2.3" fill="#ffffff" opacity="0.70" /><circle cx="870" cy="141" r="0.6" fill="#ffffff" opacity="0.34" /><circle cx="545" cy="150" r="0.7" fill="#ffffff" opacity="0.70" /><circle cx="484" cy="290" r="2.0" fill="#ffffff" opacity="0.71" /><circle cx="32" cy="469" r="0.8" fill="#ffffff" opacity="0.92" /><circle cx="295" cy="265" r="1.4" fill="#ffffff" opacity="0.71" /><circle cx="202" cy="271" r="1.0" fill="#ffffff" opacity="0.68" /><circle cx="907" cy="815" r="1.6" fill="#ffffff" opacity="0.92" /><circle cx="921" cy="182" r="0.4" fill="#ffffff" opacity="0.43" /><circle cx="995" cy="262" r="2.0" fill="#ffffff" opacity="0.42" /></g>
+
+  <!-- Title -->
+  <text x="512" y="90" text-anchor="middle" font-family="'Outfit', 'Inter', sans-serif" font-weight="900" font-size="44" fill="url(#goldText6)" filter="url(#glow6)" letter-spacing="2">
+    THE SAMPLE SPACE DECIDES!
+  </text>
+  <text x="512" y="132" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="700" font-size="20" fill="#d8b4fe">
+    Change the Contents → Change the Probability
+  </text>
+
+  <!-- Table Pedestal -->
+  <path d="M80,750 L944,750 L880,820 L144,820 Z" fill="rgba(28, 12, 64, 0.9)" stroke="#a855f7" stroke-width="3" filter="url(#glow6)"/>
+
+  <!-- JAR 1: CERTAIN -->
+  <g transform="translate(110, 360)">
+    <rect x="0" y="0" width="220" height="270" rx="35" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.4)" stroke-width="3" filter="url(#glow6)"/>
+    <rect x="30" y="-22" width="160" height="32" rx="12" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+    <!-- Marbles (All Red) -->
+    <circle cx="65" cy="210" r="26" fill="#ef4444" filter="url(#glow6)"/>
+    <circle cx="155" cy="210" r="26" fill="#ef4444" filter="url(#glow6)"/>
+    <circle cx="110" cy="185" r="26" fill="#f87171" filter="url(#glow6)"/>
+    <circle cx="65" cy="140" r="26" fill="#dc2626" filter="url(#glow6)"/>
+    <circle cx="155" cy="140" r="26" fill="#ef4444" filter="url(#glow6)"/>
+    <circle cx="110" cy="100" r="26" fill="#f87171" filter="url(#glow6)"/>
+    <!-- Highlight -->
+    <path d="M22,35 Q28,135 22,235" stroke="rgba(255,255,255,0.7)" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <!-- Badge -->
+    <rect x="-10" y="295" width="240" height="55" rx="28" fill="#15803d" stroke="#4ade80" stroke-width="3" filter="url(#glow6)"/>
+    <text x="110" y="330" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="20" fill="#ffffff">
+      CERTAIN (P = 1)
+    </text>
+  </g>
+
+  <!-- JAR 2: LIKELY -->
+  <g transform="translate(402, 360)">
+    <rect x="0" y="0" width="220" height="270" rx="35" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.4)" stroke-width="3" filter="url(#glow6)"/>
+    <rect x="30" y="-22" width="160" height="32" rx="12" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+    <!-- Marbles (5 Red + 1 Glowing Blue) -->
+    <circle cx="65" cy="210" r="26" fill="#ef4444" filter="url(#glow6)"/>
+    <circle cx="155" cy="210" r="26" fill="#ef4444" filter="url(#glow6)"/>
+    <!-- Glowing Blue Marble -->
+    <circle cx="110" cy="185" r="28" fill="#3b82f6" stroke="#60a5fa" stroke-width="5" filter="url(#glow6)"/>
+    <circle cx="110" cy="185" r="10" fill="#ffffff" opacity="0.9"/>
+    <circle cx="65" cy="140" r="26" fill="#ef4444" filter="url(#glow6)"/>
+    <circle cx="155" cy="140" r="26" fill="#dc2626" filter="url(#glow6)"/>
+    <circle cx="110" cy="100" r="26" fill="#f87171" filter="url(#glow6)"/>
+    <!-- Highlight -->
+    <path d="M22,35 Q28,135 22,235" stroke="rgba(255,255,255,0.7)" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <!-- Badge -->
+    <rect x="-10" y="295" width="240" height="55" rx="28" fill="#b45309" stroke="#fbbf24" stroke-width="3" filter="url(#glow6)"/>
+    <text x="110" y="330" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="20" fill="#ffffff">
+      LIKELY (P = 5/6)
+    </text>
+  </g>
+
+  <!-- JAR 3: IMPOSSIBLE -->
+  <g transform="translate(694, 360)">
+    <rect x="0" y="0" width="220" height="270" rx="35" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.4)" stroke-width="3" filter="url(#glow6)"/>
+    <rect x="30" y="-22" width="160" height="32" rx="12" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+    <!-- Marbles (All Blue) -->
+    <circle cx="65" cy="210" r="26" fill="#2563eb" filter="url(#glow6)"/>
+    <circle cx="155" cy="210" r="26" fill="#3b82f6" filter="url(#glow6)"/>
+    <circle cx="110" cy="185" r="26" fill="#1d4ed8" filter="url(#glow6)"/>
+    <circle cx="65" cy="140" r="26" fill="#3b82f6" filter="url(#glow6)"/>
+    <circle cx="155" cy="140" r="26" fill="#2563eb" filter="url(#glow6)"/>
+    <circle cx="110" cy="100" r="26" fill="#60a5fa" filter="url(#glow6)"/>
+    <!-- Highlight -->
+    <path d="M22,35 Q28,135 22,235" stroke="rgba(255,255,255,0.7)" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <!-- Badge -->
+    <rect x="-10" y="295" width="240" height="55" rx="28" fill="#b91c1c" stroke="#f87171" stroke-width="3" filter="url(#glow6)"/>
+    <text x="110" y="330" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="20" fill="#ffffff">
+      IMPOSSIBLE (P = 0)
+    </text>
+  </g>
+
+  <!-- Anime Detective Girl Portrait Vignette in Corner -->
+  <g transform="translate(160, 160)" filter="url(#glow6)">
+    <!-- Face base -->
+    <ellipse cx="0" cy="40" rx="35" ry="42" fill="#fed7aa"/>
+    <!-- Hair Dark Blue Anime Cut -->
+    <path d="M-45,20 C-45,-30 45,-30 45,20 C40,0 20,-20 0,-15 C-20,-20 -40,0 -45,20 Z" fill="#1e1b4b"/>
+    <path d="M-38,15 L-25,45 L-15,10 L0,50 L15,10 L25,45 L38,15 Z" fill="#312e81"/>
+    <!-- Large Anime Eyes -->
+    <ellipse cx="-16" cy="38" rx="8" ry="12" fill="#047857"/>
+    <ellipse cx="16" cy="38" rx="8" ry="12" fill="#047857"/>
+    <circle cx="-14" cy="34" r="3" fill="#ffffff"/>
+    <circle cx="18" cy="34" r="3" fill="#ffffff"/>
+    <!-- Cute Smile & Blush -->
+    <path d="M-8,55 Q0,63 8,55" stroke="#be123c" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="-25" cy="48" rx="6" ry="3" fill="#f43f5e" opacity="0.6"/>
+    <ellipse cx="25" cy="48" rx="6" ry="3" fill="#f43f5e" opacity="0.6"/>
+    <!-- School Blazer Collar -->
+    <path d="M-30,75 L0,95 L30,75 L40,110 L-40,110 Z" fill="#1e293b"/>
+    <path d="M-5,78 L0,100 L5,78 Z" fill="#dc2626"/>
+    <!-- Glowing Holographic Magnifying Glass -->
+    <circle cx="45" cy="20" r="24" fill="none" stroke="#fbbf24" stroke-width="4"/>
+    <circle cx="45" cy="20" r="20" fill="rgba(251, 191, 36, 0.2)"/>
+    <line x1="62" y1="37" x2="80" y2="55" stroke="#fbbf24" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- Speech Bubble from Robot Zara -->
+  <g transform="translate(720, 160)" filter="url(#glow6)">
+    <rect x="-140" y="0" width="280" height="60" rx="20" fill="#ffffff" stroke="#fbbf24" stroke-width="4"/>
+    <text x="0" y="36" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="16" fill="#0f172a">
+      "Even 1 blue marble changes red!" 🔵
+    </text>
+  </g>
+
+  <!-- Bottom Glass Banner -->
+  <rect x="112" y="890" width="800" height="85" rx="42" fill="rgba(22, 11, 54, 0.95)" stroke="#fbbf24" stroke-width="3" filter="url(#glow6)"/>
+  <text x="512" y="942" text-anchor="middle" font-family="'Outfit', sans-serif" font-weight="900" font-size="26" fill="#fef08a">
+    "Change the bag → Change the probability!"
+  </text>
+</svg>

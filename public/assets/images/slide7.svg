@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bgGrad7" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0422"/>
+      <stop offset="50%" stop-color="#18093c"/>
+      <stop offset="100%" stop-color="#2c094e"/>
+    </linearGradient>
+    <radialGradient id="goldGlow7" cx="25%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cyanGlow7" cx="75%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="goldText7" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="glow7">
+      <feGaussianBlur stdDeviation="9" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="url(#bgGrad7)"/>
+  <circle cx="260" cy="500" r="450" fill="url(#goldGlow7)"/>
+  <circle cx="760" cy="500" r="450" fill="url(#cyanGlow7)"/>
+  <g><circle cx="703" cy="647" r="0.7" fill="#ffffff" opacity="0.51" /><circle cx="489" cy="258" r="1.4" fill="#ffffff" opacity="0.34" /><circle cx="683" cy="964" r="1.5" fill="#ffffff" opacity="0.87" /><circle cx="807" cy="222" r="0.9" fill="#ffffff" opacity="0.30" /><circle cx="635" cy="341" r="2.2" fill="#ffffff" opacity="0.36" /><circle cx="938" cy="376" r="1.7" fill="#ffffff" opacity="0.60" /><circle cx="528" cy="641" r="0.7" fill="#ffffff" opacity="0.82" /><circle cx="195" cy="842" r="0.9" fill="#ffffff" opacity="0.64" /><circle cx="658" cy="626" r="1.5" fill="#ffffff" opacity="0.46" /><circle cx="515" cy="485" r="1.7" fill="#ffffff" opacity="0.70" /><circle cx="262" cy="800" r="1.2" fill="#ffffff" opacity="0.77" /><circle cx="237" cy="675" r="0.6" fill="#ffffff" opacity="0.67" /><circle cx="725" cy="267" r="1.2" fill="#ffffff" opacity="0.40" /><circle cx="356" cy="534" r="1.4" fill="#ffffff" opacity="0.55" /><circle cx="599" cy="799" r="2.0" fill="#ffffff" opacity="0.62" /><circle cx="490" cy="284" r="1.3" fill="#ffffff" opacity="0.57" /><circle cx="667" cy="304" r="2.4" fill="#ffffff" opacity="0.33" /><circle cx="338" cy="530" r="1.1" fill="#ffffff" opacity="0.50" /><circle cx="1014" cy="496" r="2.3" fill="#ffffff" opacity="0.47" /><circle cx="237" cy="717" r="1.1" fill="#ffffff" opacity="0.45" /><circle cx="30" cy="71" r="2.1" fill="#ffffff" opacity="0.61" /><circle cx="959" cy="865" r="1.0" fill="#ffffff" opacity="0.71" /><circle cx="581" cy="78" r="0.5" fill="#ffffff" opacity="0.84" /><circle cx="589" cy="314" r="2.2" fill="#ffffff" opacity="0.74" /><circle cx="378" cy="439" r="2.0" fill="#ffffff" opacity="0.98" /><circle cx="239" cy="554" r="0.7" fill="#ffffff" opacity="0.76" /><circle cx="334" cy="959" r="2.1" fill="#ffffff" opacity="0.65" /><circle cx="749" cy="896" r="1.7" fill="#ffffff" opacity="0.81" /><circle cx="201" cy="27" r="1.8" fill="#ffffff" opacity="0.90" /><circle cx="960" cy="961" r="1.0" fill="#ffffff" opacity="0.31" /><circle cx="637" cy="267" r="1.2" fill="#ffffff" opacity="0.79" /><circle cx="529" cy="728" r="2.3" fill="#ffffff" opacity="0.39" /><circle cx="803" cy="824" r="2.0" fill="#ffffff" opacity="0.89" /><circle cx="239" cy="154" r="1.0" fill="#ffffff" opacity="0.95" /><circle cx="609" cy="13" r="1.9" fill="#ffffff" opacity="0.33" /><circle cx="770" cy="163" r="1.0" fill="#ffffff" opacity="0.87" /><circle cx="534" cy="1014" r="1.3" fill="#ffffff" opacity="0.38" /><circle cx="592" cy="309" r="1.0" fill="#ffffff" opacity="0.91" /><circle cx="367" cy="115" r="1.7" fill="#ffffff" opacity="0.50" /><circle cx="148" cy="1019" r="2.0" fill="#ffffff" opacity="0.84" /><circle cx="1022" cy="844" r="0.6" fill="#ffffff" opacity="0.96" /><circle cx="74" cy="930" r="0.5" fill="#ffffff" opacity="0.61" /><circle cx="855" cy="610" r="1.7" fill="#ffffff" opacity="0.74" /><circle cx="163" cy="935" r="2.0" fill="#ffffff" opacity="0.81" /><circle cx="931" cy="779" r="0.9" fill="#ffffff" opacity="0.68" /><circle cx="864" cy="514" r="1.1" fill="#ffffff" opacity="0.92" /><circle cx="579" cy="680" r="1.3" fill="#ffffff" opacity="0.39" /><circle cx="806" cy="492" r="1.2" fill="#ffffff" opacity="0.87" /><circle cx="175" cy="901" r="1.9" fill="#ffffff" opacity="0.86" /><circle cx="607" cy="671" r="1.7" fill="#ffffff" opacity="0.88" /><circle cx="532" cy="706" r="1.6" fill="#ffffff" opacity="0.47" /><circle cx="685" cy="524" r="1.2" fill="#ffffff" opacity="0.96" /><circle cx="747" cy="420" r="1.0" fill="#ffffff" opacity="0.46" /><circle cx="143" cy="306" r="0.6" fill="#ffffff" opacity="0.59" /><circle cx="913" cy="78" r="2.3" fill="#ffffff" opacity="0.53" /><circle cx="957" cy="753" r="1.1" fill="#ffffff" opacity="0.40" /><circle cx="213" cy="699" r="1.8" fill="#ffffff" opacity="0.68" /><circle cx="229" cy="175" r="1.7" fill="#ffffff" opacity="0.69" /><circle cx="968" cy="835" r="1.4" fill="#ffffff" opacity="0.58" /><circle cx="386" cy="744" r="0.8" fill="#ffffff" opacity="0.60" /><circle cx="698" cy="519" r="0.6" fill="#ffffff" opacity="0.63" /><circle cx="120" cy="862" r="2.0" fill="#ffffff" opacity="0.86" /><circle cx="117" cy="567" r="2.1" fill="#ffffff" opacity="0.61" /><circle cx="344" cy="81" r="1.1" fill="#ffffff" opacity="0.80" /><circle cx="664" cy="46" r="1.4" fill="#ffffff" opacity="1.00" /><circle cx="0" cy="789" r="1.8" fill="#ffffff" opacity="0.35" /><circle cx="435" cy="639" r="2.3" fill="#ffffff" opacity="0.63" /><circle cx="542" cy="859" r="2.4" fill="#ffffff" opacity="0.56" /><circle cx="629" cy="549" r="1.9" fill="#ffffff" opacity="0.41" /><circle cx="153" cy="171" r="2.1" fill="#ffffff" opacity="0.43" /><circle cx="1018" cy="705" r="0.7" fill="#ffffff" opacity="0.66" /><circle cx="935" cy="3" r="1.5" fill="#ffffff" opacity="0.31" /><circle cx="289" cy="302" r="1.9" fill="#ffffff" opacity="0.77" /><circle cx="950" cy="478" r="2.1" fill="#ffffff" opacity="0.47" /><circle cx="187" cy="538" r="0.9" fill="#ffffff" opacity="0.89" /><circle cx="247" cy="957" r="2.3" fill="#ffffff" opacity="0.72" /><circle cx="524" cy="377" r="1.7" fill="#ffffff" opacity="0.57" /><circle cx="263" cy="684" r="0.6" fill="#ffffff" opacity="0.31" /><circle cx="697" cy="843" r="0.9" fill="#ffffff" opacity="0.51" /><circle cx="719" cy="198" r="2.3" fill="#ffffff" opacity="0.31" /><circle cx="1004" cy="475" r="1.2" fill="#ffffff" opacity="0.88" /><circle cx="430" cy="310" r="1.2" fill="#ffffff" opacity="0.43" /><circle cx="637" cy="757" r="2.1" fill="#ffffff" opacity="0.59" /><circle cx="24" cy="180" r="1.6" fill="#ffffff" opacity="0.96" /><circle cx="665" cy="939" r="1.5" fill="#ffffff" opacity="0.96" /><circle cx="951" cy="593" r="1.0" fill="#ffffff" opacity="0.82" /><circle cx="802" cy="384" r="1.4" fill="#ffffff" opacity="0.56" /><circle cx="445" cy="67" r="1.5" fill="#ffffff" opacity="0.70" /><circle cx="350" cy="949" r="2.0" fill="#ffffff" opacity="0.41" /><circle cx="977" cy="509" r="1.5" fill="#ffffff" opacity="0.49" /><circle cx="295" cy="764" r="1.8" fill="#ffffff" opacity="0.88" /><circle cx="383" cy="572" r="2.1" fill="#ffffff" opacity="0.98" /><circle cx="929" cy="454" r="0.8" fill="#ffffff" opacity="0.66" /><circle cx="874" cy="539" r="1.9" fill="#ffffff" opacity="0.89" /><circle cx="189" cy="645" r="1.9" fill="#ffffff" opacity="0.39" /><circle cx="548" cy="398" r="1.4" fill="#ffffff" opacity="0.90" /><circle cx="180" cy="298" r="0.7" fill="#ffffff" opacity="0.85" /><circle cx="194" cy="308" r="0.6" fill="#ffffff" opacity="0.64" /><circle cx="709" cy="124" r="1.3" fill="#ffffff" opacity="0.86" /><circle cx="103" cy="873" r="1.8" fill="#ffffff" opacity="0.38" /><circle cx="464" cy="846" r="2.0" fill="#ffffff" opacity="0.99" /><circle cx="446" cy="251" r="0.6" fill="#ffffff" opacity="0.32" /><circle cx="969" cy="696" r="2.4" fill="#ffffff" opacity="0.63" /><circle cx="686" cy="127" r="0.8" fill="#ffffff" opacity="0.97" /><circle cx="597" cy="401" r="2.2" fill="#ffffff" opacity="0.45" /><circle cx="493" cy="119" r="1.4" fill="#ffffff" opacity="0.85" /><circle cx="201" cy="928" r="1.9" fill="#ffffff" opacity="0.60" /><circle cx="467" cy="762" r="1.3" fill="#ffffff" opacity="0.37" /><circle cx="239" cy="598" r="0.9" fill="#ffffff" opacity="0.37" /><circle cx="196" cy="428" r="2.2" fill="#ffffff" opacity="0.58" /><circle cx="281" cy="559" r="2.1" fill="#ffffff" opacity="0.62" /><circle cx="943" cy="91" r="1.1" fill="#ffffff" opacity="1.00" /><circle cx="204" cy="996" r="0.5" fill="#ffffff" opacity="0.82" /><circle cx="932" cy="615" r="0.8" fill="#ffffff" opacity="0.58" /><circle cx="457" cy="414" r="2.0" fill="#ffffff" opacity="0.59" /><circle cx="133" cy="832" r="1.6" fill="#ffffff" opacity="0.73" /><circle cx="242" cy="605" r="1.2" fill="#ffffff" opacity="0.32" /><circle cx="43" cy="738" r="0.4" fill="#ffffff" opacity="0.99" /><circle cx="547" cy="853" r="2.3" fill="#ffffff" opacity="0.80" /><circle cx="331" cy="559" r="1.0" fill="#ffffff" opacity="0.47" /><circle cx="733" cy="44" r="0.7" fill="#ffffff" opacity="0.56" /><circle cx="1020" cy="193" r="1.1" fill="#ffffff" opacity="0.85" /><circle cx="891" cy="668" r="2.3" fill="#ffffff" opacity="0.77" /><circle cx="937" cy="1004" r="1.3" fill="#ffffff" opacity="0.44" /><circle cx="80" cy="972" r="1.8" fill="#ffffff" opacity="0.97" /><circle cx="553" cy="804" r="0.5" fill="#ffffff" opacity="0.54" /><circle cx="61" cy="1018" r="2.0" fill="#ffffff" opacity="0.87" /><circle cx="745" cy="438" r="1.0" fill="#ffffff" opacity="0.60" /><circle cx="128" cy="763" r="0.8" fill="#ffffff" opacity="0.75" /><circle cx="442" cy="632" r="2.1" fill="#ffffff" opacity="0.85" /><circle cx="191" cy="597" r="2.3" fill="#ffffff" opacity="0.66" /><circle cx="958" cy="722" r="2.2" fill="#ffffff" opacity="0.41" /><circle cx="282" cy="613" r="0.6" fill="#ffffff" opacity="0.83" /><circle cx="593" cy="266" r="0.5" fill="#ffffff" opacity="0.35" /><circle cx="256" cy="71" r="1.5" fill="#ffffff" opacity="0.31" /><circle cx="89" cy="550" r="0.9" fill="#ffffff" opacity="0.62" /><circle cx="8" cy="501" r="2.1" fill="#ffffff" opacity="0.69" /><circle cx="930" cy="837" r="1.2" fill="#ffffff" opacity="0.44" /><circle cx="561" cy="76" r="1.8" fill="#ffffff" opacity="0.73" /><circle cx="381" cy="724" r="2.0" fill="#ffffff" opacity="0.73" /></g>
+
+  <!-- Title -->
+  <text x="512" y="90" text-anchor="middle" font-family="'Outfit', sans-serif" font-weight="900" font-size="46" fill="url(#goldText7)" filter="url(#glow7)" letter-spacing="2">
+    OPPOSITE PARTNERS
+  </text>
+  <text x="512" y="132" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="20" fill="#e9d5ff">
+    Every Event A and Not A Always Total 1 Whole!
+  </text>
+
+  <!-- Top Central Formula Badge -->
+  <rect x="180" y="165" width="664" height="75" rx="37" fill="#1a0c40" stroke="#f59e0b" stroke-width="3" filter="url(#glow7)"/>
+  <text x="512" y="213" text-anchor="middle" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" fill="#fef08a">
+    P(A) + P(not A) = 1  ➜  P(not A) = 1 − P(A)
+  </text>
+
+  <!-- LEFT CARD: EVENT A (Gold Sun + Anime Girl Avatar) -->
+  <g transform="translate(110, 270)">
+    <rect x="0" y="0" width="370" height="500" rx="35" fill="rgba(26, 12, 64, 0.9)" stroke="#f59e0b" stroke-width="4" filter="url(#glow7)"/>
+    
+    <!-- Anime Schoolgirl Character Portrait -->
+    <g transform="translate(185, 130)">
+      <circle cx="0" cy="0" r="75" fill="#fde047" opacity="0.3" filter="url(#glow7)"/>
+      <ellipse cx="0" cy="15" rx="38" ry="44" fill="#ffedd5"/>
+      <!-- Long Brown Twintails -->
+      <path d="M-40,0 C-70,-30 -80,50 -55,80 C-45,50 -35,20 -35,0 Z" fill="#78350f"/>
+      <path d="M40,0 C70,-30 80,50 55,80 C45,50 35,20 35,0 Z" fill="#78350f"/>
+      <path d="M-42,-15 C-40,-55 40,-55 42,-15 C35,-35 0,-40 -42,-15 Z" fill="#92400e"/>
+      <!-- Eyes & Face -->
+      <ellipse cx="-16" cy="12" rx="9" ry="13" fill="#b45309"/>
+      <ellipse cx="16" cy="12" rx="9" ry="13" fill="#b45309"/>
+      <circle cx="-13" cy="8" r="3.5" fill="#ffffff"/>
+      <circle cx="19" cy="8" r="3.5" fill="#ffffff"/>
+      <path d="M-8,30 Q0,38 8,30" stroke="#be123c" stroke-width="3" fill="none"/>
+      <!-- Gold Sun Emblem held in hand -->
+      <circle cx="0" cy="70" r="28" fill="#f59e0b" filter="url(#glow7)"/>
+      <circle cx="0" cy="70" r="18" fill="#fef08a"/>
+    </g>
+
+    <text x="185" y="295" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="34" fill="#fbbf24">
+      EVENT A
+    </text>
+    <text x="185" y="340" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="24" fill="#ffffff">
+      Probability = 3/8
+    </text>
+
+    <rect x="45" y="390" width="280" height="55" rx="27" fill="#78350f" stroke="#fbbf24" stroke-width="2"/>
+    <text x="185" y="425" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="18" fill="#fef08a">
+      CERTAIN ↔ IMPOSSIBLE
+    </text>
+  </g>
+
+  <!-- RIGHT CARD: EVENT NOT A (Cyan Moon + Anime Boy Avatar) -->
+  <g transform="translate(544, 270)">
+    <rect x="0" y="0" width="370" height="500" rx="35" fill="rgba(26, 12, 64, 0.9)" stroke="#06b6d4" stroke-width="4" filter="url(#glow7)"/>
+    
+    <!-- Anime Schoolboy Character Portrait -->
+    <g transform="translate(185, 130)">
+      <circle cx="0" cy="0" r="75" fill="#38bdf8" opacity="0.3" filter="url(#glow7)"/>
+      <ellipse cx="0" cy="15" rx="38" ry="44" fill="#ffedd5"/>
+      <!-- Messy Blue Anime Hair -->
+      <path d="M-45,0 C-45,-55 45,-55 45,0 C30,-35 -30,-35 -45,0 Z" fill="#1e3a8a"/>
+      <path d="M-40,-5 L-25,25 L-12,5 L0,30 L15,5 L28,25 L40,-5 Z" fill="#2563eb"/>
+      <!-- Eyes & Face -->
+      <ellipse cx="-16" cy="12" rx="9" ry="13" fill="#0284c7"/>
+      <ellipse cx="16" cy="12" rx="9" ry="13" fill="#0284c7"/>
+      <circle cx="-13" cy="8" r="3.5" fill="#ffffff"/>
+      <circle cx="19" cy="8" r="3.5" fill="#ffffff"/>
+      <path d="M-8,30 Q0,38 8,30" stroke="#be123c" stroke-width="3" fill="none"/>
+      <!-- Cyan Crescent Moon Emblem held in hand -->
+      <circle cx="0" cy="70" r="28" fill="#06b6d4" filter="url(#glow7)"/>
+      <circle cx="8" cy="64" r="22" fill="#1a0c40"/>
+    </g>
+
+    <text x="185" y="295" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="34" fill="#22d3ee">
+      NOT A
+    </text>
+    <text x="185" y="340" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="24" fill="#ffffff">
+      Probability = 5/8
+    </text>
+
+    <rect x="45" y="390" width="280" height="55" rx="27" fill="#164e63" stroke="#22d3ee" stroke-width="2"/>
+    <text x="185" y="425" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="18" fill="#a5f3fc">
+      3/8 + 5/8 = 8/8 = 1
+    </text>
+  </g>
+
+  <!-- Central Plus Circle -->
+  <circle cx="512" cy="520" r="42" fill="#f59e0b" stroke="#ffffff" stroke-width="4" filter="url(#glow7)"/>
+  <text x="512" y="534" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="44" fill="#000000">
+    +
+  </text>
+
+  <!-- Bottom Glass Banner -->
+  <rect x="112" y="890" width="800" height="85" rx="42" fill="rgba(22, 11, 54, 0.95)" stroke="#06b6d4" stroke-width="3" filter="url(#glow7)"/>
+  <text x="512" y="942" text-anchor="middle" font-family="'Outfit', sans-serif" font-weight="900" font-size="26" fill="#a5f3fc">
+    "Certain and Impossible are perfect opposite partners!"
+  </text>
+</svg>
