@@ -2,14 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import { BgSymbols } from '../components/TopNav.jsx';
 import { PRACTICE_WORLDS, makeQuestion } from '../mathData.js';
 import { ProbDiagram } from '../components/ProbDiagram.jsx';
-import { narrate } from '../utils/audio.js';
+import { narrate, stopNarration, ask, say, cheer, encourage } from '../utils/audio.js';
 import { practiceCorrectNarration, practiceWrongNarration, practiceGameOverNarration } from '../utils/narration.js';
-import { PRACTICE_GAME_OVER } from '../utils/lessonText.js';
+import { PRACTICE_CORRECT_LINES, PRACTICE_WRONG_LINES, PRACTICE_GAME_OVER } from '../utils/lessonText.js';
 
 /* =========================================================================
    PRACTICE WORLD SELECT GRID (ONLY SHOW REFLECT BUTTON WHEN ALL 10 WORLDS COMPLETED)
    ========================================================================= */
 export function PracticeWorldSelect({ worldResults, onPlay, onGoReflect }) {
+  useEffect(() => {
+    return () => stopNarration();
+  }, []);
+
   const totalStars = worldResults.reduce((a, b) => a + (b || 0), 0);
 
   // Check if ALL 10 worlds have been completed with at least 1 star (at least 4/10 correct)
@@ -127,7 +131,7 @@ export function PracticeQuiz({ worldIndex, muted, addXp, onFinish }) {
 
   useEffect(() => {
     if (firstRender.current) {
-      firstRender.current = false; // the first question was created with the initial state
+      firstRender.current = false;
     } else {
       setQData(makeQuestion(worldIndex, seenRef.current));
     }
@@ -135,8 +139,17 @@ export function PracticeQuiz({ worldIndex, muted, addXp, onFinish }) {
     setPopupState(null);
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
+      stopNarration();
     };
   }, [qIndex, worldIndex]);
+
+  // Narrate question prompt whenever question is active
+  useEffect(() => {
+    if (qData && qData.prompt && !popupState && lives > 0) {
+      narrate([ask(qData.prompt)], !muted);
+    }
+    return () => stopNarration();
+  }, [qData, muted, popupState, lives]);
 
   const restartQuiz = () => {
     setQIndex(0);
@@ -163,7 +176,8 @@ export function PracticeQuiz({ worldIndex, muted, addXp, onFinish }) {
       setCorrectCount(updatedCorrectCount);
       setStreak(s => s + 1);
       addXp(10);
-      narrate(practiceCorrectNarration(updatedCorrectCount), !muted);
+      const cheerLine = PRACTICE_CORRECT_LINES[updatedCorrectCount % PRACTICE_CORRECT_LINES.length];
+      narrate([cheer(cheerLine), say(qData.explanation)], !muted);
       setPopupState({
         type: 'correct',
         title: 'Correct! 🎉',
@@ -173,7 +187,8 @@ export function PracticeQuiz({ worldIndex, muted, addXp, onFinish }) {
       updatedLives = lives - 1;
       setLives(updatedLives);
       setStreak(0);
-      narrate(practiceWrongNarration(qIndex), !muted);
+      const wrongLine = PRACTICE_WRONG_LINES[qIndex % PRACTICE_WRONG_LINES.length];
+      narrate([encourage(wrongLine), say(qData.explanation)], !muted);
       setPopupState({
         type: 'incorrect',
         title: 'Not quite!',
@@ -200,8 +215,9 @@ export function PracticeQuiz({ worldIndex, muted, addXp, onFinish }) {
       else {
         narrate(practiceGameOverNarration(), !muted);
       }
-    }, isCorrect ? 1400 : 3000);
+    }, isCorrect ? 3500 : 5000);
   };
+
 
   const isGameOver = lives <= 0;
   const progressPercent = Math.round(((qIndex + 1) / 10) * 100);

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { setMuted } from './utils/audio.js';
+import React, { useState, useEffect } from 'react';
+import { setMuted, stopNarration } from './utils/audio.js';
 import { TopNav } from './components/TopNav.jsx';
 import { IntroModal } from './stages/IntroPhase.jsx';
 import { WonderPhase } from './stages/WonderPhase.jsx';
@@ -10,6 +10,10 @@ import { ReflectPhase, CelebrationScreen } from './stages/ReflectPhase.jsx';
 
 export function App() {
   const [phase, setPhase] = useState('intro');
+
+  useEffect(() => {
+    stopNarration();
+  }, [phase]);
   const [muted, setMutedState] = useState(false);
   const [xp, setXp] = useState(0);
   const [worldResults, setWorldResults] = useState(Array(10).fill(null));

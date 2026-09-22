@@ -1,8 +1,7 @@
 /* =========================================================================
-   MATH DATA & PROCEDURAL QUESTION GENERATOR
-   Procedurally generates unbounded, non-repeating Grade 7 questions on
-   IMPOSSIBLE and CERTAIN events (probability 0 and 1), the probability
-   line, sample spaces and complementary events.
+   MATH DATA & PRACTICE QUESTION DATASET
+   10 themed worlds x 10 curated Grade 7 practice questions with exact
+   prompts, options, explanations (hints), and visual diagrams.
    ========================================================================= */
 
 export const WESTERN_NAMES = [
@@ -12,33 +11,28 @@ export const WESTERN_NAMES = [
 ];
 
 export const PRACTICE_WORLDS = [
-  { id: 0, name: "Dice Dungeon",         icon: "🎲", range: "Q1–10",   difficulty: 1, themes: ["die"],                                   archetypes: ["classify", "prob_value"] },
-  { id: 1, name: "Marble Mountain",      icon: "🔮", range: "Q11–20",  difficulty: 1, themes: ["bag"],                                   archetypes: ["classify", "make_change"] },
-  { id: 2, name: "Coin Cavern",          icon: "🪙", range: "Q21–30",  difficulty: 2, themes: ["coin"],                                  archetypes: ["classify", "prob_value", "complement"] },
-  { id: 3, name: "Spinner Speedway",     icon: "🎡", range: "Q31–40",  difficulty: 2, themes: ["spinner"],                               archetypes: ["classify", "prob_value", "line_read"] },
-  { id: 4, name: "Card Castle",          icon: "🃏", range: "Q41–50",  difficulty: 3, themes: ["cards", "tokens"],                       archetypes: ["classify", "prob_value", "valid_prob"] },
-  { id: 5, name: "Calendar Tower",       icon: "📅", range: "Q51–60",  difficulty: 3, themes: ["calendar", "letters"],                   archetypes: ["classify", "prob_value", "myth"] },
-  { id: 6, name: "Candy Jar Jungle",     icon: "🍬", range: "Q61–70",  difficulty: 3, themes: ["candy"],                                 archetypes: ["make_change", "complement", "classify", "prob_value"] },
-  { id: 7, name: "Probability Line Peak",icon: "📏", range: "Q71–80",  difficulty: 4, themes: ["abstract"],                              archetypes: ["line_read", "valid_prob", "complement", "myth"] },
-  { id: 8, name: "Two-Dice Galaxy",      icon: "🚀", range: "Q81–90",  difficulty: 4, themes: ["twodice"],                               archetypes: ["classify", "prob_value", "complement"] },
-  { id: 9, name: "Grand Master Vault",   icon: "🏆", range: "Q91–100", difficulty: 4, themes: ["die", "bag", "coin", "spinner", "cards", "tokens", "calendar", "letters", "candy", "twodice"],
-                                                                                              archetypes: ["classify", "prob_value", "complement", "make_change", "valid_prob", "line_read", "myth"] }
+  { id: 0, name: "Dice Dungeon",          icon: "🎲", range: "Q1–10",   difficulty: 1 },
+  { id: 1, name: "Marble Mountain",       icon: "🔮", range: "Q11–20",  difficulty: 1 },
+  { id: 2, name: "Coin Cavern",           icon: "🪙", range: "Q21–30",  difficulty: 2 },
+  { id: 3, name: "Spinner Speedway",      icon: "🎡", range: "Q31–40",  difficulty: 2 },
+  { id: 4, name: "Card Castle",           icon: "🃏", range: "Q41–50",  difficulty: 3 },
+  { id: 5, name: "Calendar Tower",        icon: "📅", range: "Q51–60",  difficulty: 3 },
+  { id: 6, name: "Candy Jar Jungle",      icon: "🍬", range: "Q61–70",  difficulty: 3 },
+  { id: 7, name: "Probability Line Peak", icon: "📏", range: "Q71–80",  difficulty: 4 },
+  { id: 8, name: "Two-Dice Galaxy",       icon: "🚀", range: "Q81–90",  difficulty: 4 },
+  { id: 9, name: "Grand Master Vault",    icon: "🏆", range: "Q91–100", difficulty: 4 }
 ];
 
 /* ---------------------------------------------------------------------- */
-/* Small helpers                                                          */
+/* Helper functions & vocabulary                                         */
 /* ---------------------------------------------------------------------- */
-const pick = arr => arr[Math.floor(Math.random() * arr.length)];
-const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+export const STATUS = {
+  impossible: { key: "impossible", label: "Impossible",  color: "#f43f5e", text: "text-rose-300",    bg: "bg-rose-500/20",    border: "border-rose-400/60" },
+  unlikely:   { key: "unlikely",   label: "Unlikely",    color: "#fb923c", text: "text-orange-300",  bg: "bg-orange-500/20",  border: "border-orange-400/60" },
+  even:       { key: "even",       label: "Even chance", color: "#facc15", text: "text-yellow-300",  bg: "bg-yellow-500/20",  border: "border-yellow-400/60" },
+  likely:     { key: "likely",     label: "Likely",      color: "#2dd4bf", text: "text-teal-300",    bg: "bg-teal-500/20",    border: "border-teal-400/60" },
+  certain:    { key: "certain",    label: "Certain",     color: "#4ade80", text: "text-emerald-300", bg: "bg-emerald-500/20", border: "border-emerald-400/60" }
+};
 
 export const gcd = (a, b) => (b ? gcd(b, a % b) : Math.abs(a));
 
@@ -48,7 +42,6 @@ export function reduce(n, d) {
   return [n / g, d / g];
 }
 
-/** Text of a fraction n/d in simplest form: 0, 1, 3 or 3/8 */
 export function fracText(n, d) {
   const [a, b] = reduce(n, d);
   if (a === 0) return "0";
@@ -75,20 +68,6 @@ export function pctText(n, d) {
   return `${Number(((a / b) * 100).toFixed(2))}%`;
 }
 
-const sameFraction = (a, b) => a[0] * b[1] === b[0] * a[1];
-
-/* ---------------------------------------------------------------------- */
-/* Probability vocabulary                                                 */
-/* ---------------------------------------------------------------------- */
-export const STATUS = {
-  impossible: { key: "impossible", label: "Impossible",  color: "#f43f5e", text: "text-rose-300",    bg: "bg-rose-500/20",    border: "border-rose-400/60" },
-  unlikely:   { key: "unlikely",   label: "Unlikely",    color: "#fb923c", text: "text-orange-300",  bg: "bg-orange-500/20",  border: "border-orange-400/60" },
-  even:       { key: "even",       label: "Even chance", color: "#facc15", text: "text-yellow-300",  bg: "bg-yellow-500/20",  border: "border-yellow-400/60" },
-  likely:     { key: "likely",     label: "Likely",      color: "#2dd4bf", text: "text-teal-300",    bg: "bg-teal-500/20",    border: "border-teal-400/60" },
-  certain:    { key: "certain",    label: "Certain",     color: "#4ade80", text: "text-emerald-300", bg: "bg-emerald-500/20", border: "border-emerald-400/60" }
-};
-
-/** Classify the probability fav/total on the 5-level probability line */
 export function probStatus(fav, total) {
   if (total <= 0) return STATUS.impossible;
   if (fav <= 0) return STATUS.impossible;
@@ -98,7 +77,6 @@ export function probStatus(fav, total) {
   return p2 < total ? STATUS.unlikely : STATUS.likely;
 }
 
-/** One-sentence meaning of a probability status */
 export function statusCaption(fav, total) {
   const s = probStatus(fav, total);
   if (s.key === "impossible") return "Impossible: there are 0 favourable outcomes, so it can NEVER happen.";
@@ -106,7 +84,6 @@ export function statusCaption(fav, total) {
   return "Possible but NOT certain: some outcomes are favourable, some are not.";
 }
 
-/** Read a learner's typed probability: "7/12", "0.58", "58%", "1", "0" */
 export function parseProbability(raw) {
   if (raw == null) return null;
   const s = String(raw).trim().replace(/\s+/g, "");
@@ -120,7 +97,6 @@ export function parseProbability(raw) {
   return null;
 }
 
-/** True if the typed answer equals fav/total (exact fractions, tidy decimals, percents) */
 export function probMatches(raw, fav, total) {
   const v = parseProbability(raw);
   if (v == null || Number.isNaN(v)) return false;
@@ -129,628 +105,745 @@ export function probMatches(raw, fav, total) {
 }
 
 /* ---------------------------------------------------------------------- */
-/* Scenario factories                                                     */
-/* Every scenario:  { setup, event, fav, total, diagram }                  */
+/* World Question Dataset                                                */
 /* ---------------------------------------------------------------------- */
-const kindOf = (fav, total) => (fav === 0 ? "impossible" : fav === total ? "certain" : "mid");
-
-function chooseKind(diff) {
-  const r = Math.random();
-  if (diff <= 1) return r < 0.5 ? "impossible" : "certain";
-  if (diff <= 3) return r < 0.25 ? "impossible" : r < 0.5 ? "certain" : "mid";
-  return r < 0.2 ? "impossible" : r < 0.4 ? "certain" : "mid";
-}
-
-/* ---- Die ---- */
-const DIE_EVENTS = [
-  ["rolling a 7", n => n === 7], ["rolling a 0", n => n === 0], ["rolling a 9", n => n === 9],
-  ["rolling a number greater than 6", n => n > 6], ["rolling a number bigger than 10", n => n > 10],
-  ["rolling a negative number", n => n < 0], ["rolling a number less than 1", n => n < 1],
-  ["rolling a number less than 7", n => n < 7], ["rolling a whole number from 1 to 6", n => n >= 1 && n <= 6],
-  ["rolling a number greater than 0", n => n > 0], ["rolling a number that is at most 6", n => n <= 6],
-  ["rolling a number less than 10", n => n < 10],
-  ["rolling an even number", n => n % 2 === 0], ["rolling an odd number", n => n % 2 === 1],
-  ["rolling a 4", n => n === 4], ["rolling a number greater than 4", n => n > 4],
-  ["rolling a prime number", n => [2, 3, 5].includes(n)], ["rolling a multiple of 3", n => n % 3 === 0],
-  ["rolling a number less than 3", n => n < 3], ["rolling a number less than 6", n => n < 6],
-  ["rolling a number that is at least 2", n => n >= 2]
-];
-
-function dieScenario(kind, name) {
-  const faces = [1, 2, 3, 4, 5, 6];
-  const list = DIE_EVENTS.map(([text, pred]) => ({ text, pred, total: 6, fav: faces.filter(pred).length }));
-  const e = pick(list.filter(x => kindOf(x.fav, 6) === kind));
-  return {
-    setup: `${name} rolls a fair six-sided die.`,
-    event: e.text, fav: e.fav, total: 6,
-    diagram: { mode: "die", faces, favFaces: faces.filter(e.pred) }
-  };
-}
-
-/* ---- Colour-based scenarios (bag, candy jar, spinner) ---- */
-const COLORS = ["red", "blue", "green", "yellow", "purple", "orange"];
-
-function joinList(items) {
-  if (items.length <= 1) return items.join("");
-  return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
-}
-function joinOr(items) {
-  if (items.length <= 1) return items.join("");
-  return `${items.slice(0, -1).join(", ")} or ${items[items.length - 1]}`;
-}
-
-function colorScenario(kind, unit /* 'marble' | 'candy' | 'spinner' */, name) {
-  let counts = {};
-  let event;
-  let favColors;
-
-  const many = () => {
-    const cols = shuffle(COLORS).slice(0, randInt(2, 3));
-    cols.forEach(c => (counts[c] = randInt(1, 4)));
-    return cols;
-  };
-
-  if (kind === "impossible") {
-    if (Math.random() < 0.7) {
-      const cols = Math.random() < 0.5 ? many() : (() => { const c = pick(COLORS); counts[c] = randInt(2, 6); return [c]; })();
-      const absent = pick(COLORS.filter(c => !cols.includes(c)));
-      event = { type: "is", color: absent };
-      favColors = [absent];
-    } else {
-      const c = pick(COLORS);
-      counts[c] = randInt(2, 6);
-      event = { type: "not", color: c };
-      favColors = [];
+export const WORLD_QUESTIONS = {
+  0: [
+    {
+      prompt: "Leo rolls a fair six-sided die. How would you describe the event: rolling a 7?",
+      options: ["Impossible", "Certain", "Unlikely", "Likely"],
+      correctIndex: 0,
+      explanation: "There are 0 favourable outcomes out of 6, so P = 0/6 = 0. It can never happen, so it is impossible.",
+      diagramData: { mode: "die", faces: [1, 2, 3, 4, 5, 6], favFaces: [] }
+    },
+    {
+      prompt: "Emma rolls a fair six-sided die. What is the probability of rolling a number less than 7?",
+      options: ["1", "0", "1/2", "5/6"],
+      correctIndex: 0,
+      explanation: "All 6 outcomes are favourable (1, 2, 3, 4, 5, 6), so P = 6/6 = 1. It always happens, so it is certain.",
+      diagramData: { mode: "die", faces: [1, 2, 3, 4, 5, 6], favFaces: [1, 2, 3, 4, 5, 6] }
+    },
+    {
+      prompt: "Alex rolls a fair six-sided die. What is the probability of rolling an even number?",
+      options: ["1/2", "1/6", "2/3", "0"],
+      correctIndex: 0,
+      explanation: "3 of the 6 outcomes (2, 4, 6) are favourable, so P = 3/6 = 1/2.",
+      diagramData: { mode: "die", faces: [1, 2, 3, 4, 5, 6], favFaces: [2, 4, 6] }
+    },
+    {
+      prompt: "Chloe rolls a fair six-sided die. How would you describe the event: rolling a number greater than 0?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "Every face 1 to 6 is greater than 0, so all 6 outcomes are favourable. P = 1, which means certain.",
+      diagramData: { mode: "die", faces: [1, 2, 3, 4, 5, 6], favFaces: [1, 2, 3, 4, 5, 6] }
+    },
+    {
+      prompt: "Noah rolls a fair six-sided die. What is the probability of rolling a 9?",
+      options: ["0", "1/6", "1", "1/2"],
+      correctIndex: 0,
+      explanation: "A standard die has no face with 9. Favourable outcomes = 0, so P = 0. It is impossible.",
+      diagramData: { mode: "die", faces: [1, 2, 3, 4, 5, 6], favFaces: [] }
+    },
+    {
+      prompt: "Sophia rolls a fair six-sided die. What is the probability of rolling a prime number (2, 3, or 5)?",
+      options: ["1/2", "1/3", "1/6", "2/3"],
+      correctIndex: 0,
+      explanation: "There are 3 prime numbers on a die (2, 3, 5) out of 6 faces, so P = 3/6 = 1/2.",
+      diagramData: { mode: "die", faces: [1, 2, 3, 4, 5, 6], favFaces: [2, 3, 5] }
+    },
+    {
+      prompt: "Mason rolls a fair six-sided die. The event rolling a 4 has probability 1/6. What is the probability that it does NOT happen?",
+      options: ["5/6", "1/6", "0", "1"],
+      correctIndex: 0,
+      explanation: "P(not rolling 4) = 1 − P(rolling 4) = 1 − 1/6 = 5/6.",
+      diagramData: { mode: "line", marker: 1 / 6, label: "P(E)" }
+    },
+    {
+      prompt: "Ella rolls a fair six-sided die. How would you describe the event: rolling a negative number?",
+      options: ["Impossible", "Unlikely", "Certain", "Likely"],
+      correctIndex: 0,
+      explanation: "Dice faces are positive whole numbers from 1 to 6. There are 0 negative faces, so P = 0, which is impossible.",
+      diagramData: { mode: "die", faces: [1, 2, 3, 4, 5, 6], favFaces: [] }
+    },
+    {
+      prompt: "James rolls a fair six-sided die. What is the probability of rolling a number less than 4?",
+      options: ["1/2", "1/3", "2/3", "1/6"],
+      correctIndex: 0,
+      explanation: "Faces 1, 2, and 3 are less than 4, so 3 outcomes out of 6 are favourable. P = 3/6 = 1/2.",
+      diagramData: { mode: "die", faces: [1, 2, 3, 4, 5, 6], favFaces: [1, 2, 3] }
+    },
+    {
+      prompt: "Harper rolls a fair six-sided die. How would you describe the event: rolling a whole number from 1 to 6?",
+      options: ["Certain", "Possible but not certain", "Impossible", "Unlikely"],
+      correctIndex: 0,
+      explanation: "Every outcome on a fair die is a whole number from 1 to 6. P = 6/6 = 1, so it is certain.",
+      diagramData: { mode: "die", faces: [1, 2, 3, 4, 5, 6], favFaces: [1, 2, 3, 4, 5, 6] }
     }
-  } else if (kind === "certain") {
-    const roll = Math.random();
-    if (roll < 0.4) {
-      const c = pick(COLORS);
-      counts[c] = randInt(2, 7);
-      event = { type: "is", color: c };
-      favColors = [c];
-    } else if (roll < 0.75) {
-      const cols = many();
-      event = { type: "any", colors: cols };
-      favColors = cols;
-    } else {
-      const c = pick(COLORS);
-      counts[c] = randInt(2, 6);
-      const absent = pick(COLORS.filter(x => x !== c));
-      event = { type: "not", color: absent };
-      favColors = [c];
-    }
-  } else {
-    const cols = many();
-    const c = pick(cols);
-    if (Math.random() < 0.7) {
-      event = { type: "is", color: c };
-      favColors = [c];
-    } else {
-      event = { type: "not", color: c };
-      favColors = cols.filter(x => x !== c);
-    }
-  }
+  ],
 
-  const total = Object.values(counts).reduce((a, b) => a + b, 0);
-  const fav = favColors.reduce((s, c) => s + (counts[c] || 0), 0);
-  const colsInBag = Object.keys(counts);
-  const nounPl = unit === "candy" ? "candies" : "marbles";
-  const noun = unit === "candy" ? "candy" : "marble";
-
-  const desc = colsInBag.length === 1
-    ? `${counts[colsInBag[0]]} ${colsInBag[0]} ${nounPl}`
-    : `${joinList(colsInBag.map(c => `${counts[c]} ${c}`))} ${nounPl}`;
-
-  let eventText;
-  if (unit === "spinner") {
-    if (event.type === "is") eventText = `landing on ${event.color}`;
-    else if (event.type === "not") eventText = `landing on a section that is not ${event.color}`;
-    else eventText = `landing on ${joinOr(event.colors)}`;
-  } else {
-    if (event.type === "is") eventText = `drawing a ${event.color} ${noun}`;
-    else if (event.type === "not") eventText = `drawing a ${noun} that is not ${event.color}`;
-    else eventText = `drawing a ${joinOr(event.colors)} ${noun}`;
-  }
-
-  if (unit === "spinner") {
-    // Lay the sections out in a shuffled circle
-    const wedges = shuffle(colsInBag.flatMap(c => Array(counts[c]).fill(c)));
-    return {
-      setup: colsInBag.length === 1
-        ? `${name} spins a wheel with ${total} equal sections, all ${colsInBag[0]}.`
-        : `${name} spins a wheel with ${total} equal sections: ${joinList(colsInBag.map(c => `${counts[c]} ${c}`))}.`,
-      event: eventText, fav, total,
-      diagram: { mode: "spinner", wedges, favColors }
-    };
-  }
-
-  const inBagWord = unit === "candy" ? "jar" : "bag";
-  return {
-    setup: `${name}'s ${inBagWord} holds ${desc}. ${name} picks one without looking.`,
-    event: eventText, fav, total,
-    diagram: { mode: "bag", counts, favColors, unit }
-  };
-}
-
-/* ---- Coins ---- */
-function coinOutcomes(n) {
-  let out = [""];
-  for (let i = 0; i < n; i++) out = out.flatMap(o => [o + "H", o + "T"]);
-  return out;
-}
-const COIN_EVENTS = {
   1: [
-    ["the coin lands on heads", o => o === "H"], ["the coin lands on tails", o => o === "T"],
-    ["the coin lands on heads or tails", o => o === "H" || o === "T"],
-    ["the coin lands on both heads and tails at the same time", () => false]
+    {
+      prompt: "Maya's bag holds 5 red marbles and 0 blue marbles. How would you describe drawing a blue marble?",
+      options: ["Impossible", "Certain", "Likely", "Unlikely"],
+      correctIndex: 0,
+      explanation: "There are 0 blue marbles in the bag, so P = 0. It can never happen, so it is impossible.",
+      diagramData: { mode: "bag", counts: { red: 5 }, favColors: ["blue"], unit: "marble" }
+    },
+    {
+      prompt: "Liam's bag holds 8 red marbles. What is the probability of drawing a red marble?",
+      options: ["1", "0", "1/2", "7/8"],
+      correctIndex: 0,
+      explanation: "Every marble in the bag is red, so P = 8/8 = 1. It always happens, so it is certain.",
+      diagramData: { mode: "bag", counts: { red: 8 }, favColors: ["red"], unit: "marble" }
+    },
+    {
+      prompt: "Ethan's bag holds 3 red marbles and 3 blue marbles. What is the probability of drawing a red marble?",
+      options: ["1/2", "1/3", "2/3", "1"],
+      correctIndex: 0,
+      explanation: "3 out of 6 marbles are red, so P = 3/6 = 1/2.",
+      diagramData: { mode: "bag", counts: { red: 3, blue: 3 }, favColors: ["red"], unit: "marble" }
+    },
+    {
+      prompt: "Charlotte's bag holds 4 green marbles and 2 yellow marbles. Which change makes drawing a green marble certain?",
+      options: ["Take out every marble that is not green", "Add 3 more green marbles", "Take out 2 green marbles", "Add 1 yellow marble"],
+      correctIndex: 0,
+      explanation: "Drawing green is certain only when every marble in the bag is green. Take out every marble that is not green.",
+      diagramData: { mode: "bag", counts: { green: 4, yellow: 2 }, favColors: ["green"], unit: "marble" }
+    },
+    {
+      prompt: "Lucas's bag holds 6 blue marbles and 2 red marbles. Which change makes drawing a red marble impossible?",
+      options: ["Take out all 2 red marbles", "Add 5 more blue marbles", "Take out 1 blue marble", "Add 2 red marbles"],
+      correctIndex: 0,
+      explanation: "Drawing red is impossible when there are 0 red marbles left in the bag. Take out all 2 red marbles.",
+      diagramData: { mode: "bag", counts: { blue: 6, red: 2 }, favColors: ["red"], unit: "marble" }
+    },
+    {
+      prompt: "Ava's bag holds 7 purple marbles. How would you describe drawing a yellow marble?",
+      options: ["Impossible", "Unlikely", "Certain", "Likely"],
+      correctIndex: 0,
+      explanation: "There are 0 yellow marbles in the bag. P = 0, so it is impossible.",
+      diagramData: { mode: "bag", counts: { purple: 7 }, favColors: ["yellow"], unit: "marble" }
+    },
+    {
+      prompt: "Oliver's bag holds 2 red, 2 blue, 2 green, and 2 yellow marbles. What is the probability of drawing a blue marble?",
+      options: ["1/4", "1/2", "1/8", "3/4"],
+      correctIndex: 0,
+      explanation: "2 blue marbles out of 8 total marbles gives P = 2/8 = 1/4.",
+      diagramData: { mode: "bag", counts: { red: 2, blue: 2, green: 2, yellow: 2 }, favColors: ["blue"], unit: "marble" }
+    },
+    {
+      prompt: "Mia's bag holds 10 red marbles and 0 green marbles. What is the probability of drawing a green marble?",
+      options: ["0", "1/10", "1", "1/2"],
+      correctIndex: 0,
+      explanation: "0 green marbles out of 10 total marbles gives P = 0/10 = 0.",
+      diagramData: { mode: "bag", counts: { red: 10 }, favColors: ["green"], unit: "marble" }
+    },
+    {
+      prompt: "Logan's bag holds 4 red marbles and 4 blue marbles. The event drawing a red marble has probability 1/2. What is the probability of NOT drawing a red marble?",
+      options: ["1/2", "0", "1", "1/4"],
+      correctIndex: 0,
+      explanation: "P(not red) = 1 − P(red) = 1 − 1/2 = 1/2.",
+      diagramData: { mode: "line", marker: 1 / 2, label: "P(E)" }
+    },
+    {
+      prompt: "Jack's bag holds 5 orange marbles. What is the probability of drawing an orange marble?",
+      options: ["1", "0", "1/5", "4/5"],
+      correctIndex: 0,
+      explanation: "All 5 marbles are orange, so P = 5/5 = 1.",
+      diagramData: { mode: "bag", counts: { orange: 5 }, favColors: ["orange"], unit: "marble" }
+    }
   ],
+
   2: [
-    ["both coins land on heads", o => o === "HH"], ["at least one coin lands on heads", o => o.includes("H")],
-    ["exactly one coin lands on heads", o => (o.match(/H/g) || []).length === 1],
-    ["three coins land on heads", () => false],
-    ["at most 2 coins land on heads", () => true],
-    ["the two coins land on the same side", o => o[0] === o[1]],
-    ["there are 5 heads in total", () => false]
+    {
+      prompt: "Leo flips a fair coin. How would you describe the event: the coin lands on heads or tails?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "A coin must land on either heads or tails. All outcomes are favourable, so P = 1 (certain).",
+      diagramData: { mode: "coins", n: 1, outcomes: ["H", "T"], favOutcomes: ["H", "T"] }
+    },
+    {
+      prompt: "Emma flips a fair coin. What is the probability that the coin lands on both heads and tails at the same time?",
+      options: ["0", "1/2", "1", "1/4"],
+      correctIndex: 0,
+      explanation: "A single coin flip cannot show both sides at once. Favourable outcomes = 0, so P = 0 (impossible).",
+      diagramData: { mode: "coins", n: 1, outcomes: ["H", "T"], favOutcomes: [] }
+    },
+    {
+      prompt: "Alex flips two fair coins. What is the probability that both coins land on heads?",
+      options: ["1/4", "1/2", "3/4", "0"],
+      correctIndex: 0,
+      explanation: "The sample space is {HH, HT, TH, TT} (4 outcomes). Only HH is favourable, so P = 1/4.",
+      diagramData: { mode: "coins", n: 2, outcomes: ["HH", "HT", "TH", "TT"], favOutcomes: ["HH"] }
+    },
+    {
+      prompt: "Chloe flips two fair coins. How would you describe the event: three coins land on heads?",
+      options: ["Impossible", "Certain", "Unlikely", "Likely"],
+      correctIndex: 0,
+      explanation: "Chloe only flipped 2 coins, so getting 3 heads is impossible (P = 0).",
+      diagramData: { mode: "coins", n: 2, outcomes: ["HH", "HT", "TH", "TT"], favOutcomes: [] }
+    },
+    {
+      prompt: "Noah flips a fair coin. What is the probability of landing on heads?",
+      options: ["1/2", "1", "0", "1/4"],
+      correctIndex: 0,
+      explanation: "1 favourable outcome out of 2 possible outcomes (heads, tails), so P = 1/2.",
+      diagramData: { mode: "coins", n: 1, outcomes: ["H", "T"], favOutcomes: ["H"] }
+    },
+    {
+      prompt: "Sophia flips two fair coins. The event both coins land on heads has probability 1/4. What is the probability that both coins do NOT land on heads?",
+      options: ["3/4", "1/4", "1/2", "0"],
+      correctIndex: 0,
+      explanation: "P(not HH) = 1 − 1/4 = 3/4.",
+      diagramData: { mode: "line", marker: 1 / 4, label: "P(E)" }
+    },
+    {
+      prompt: "Mason flips three fair coins. What is the probability that all three coins land on heads?",
+      options: ["1/8", "1/4", "1/2", "3/8"],
+      correctIndex: 0,
+      explanation: "Sample space has 8 outcomes {HHH, HHT, HTH, HTT, THH, THT, TTH, TTT}. Only HHH is favourable, so P = 1/8.",
+      diagramData: { mode: "coins", n: 3, outcomes: ["HHH", "HHT", "HTH", "HTT", "THH", "THT", "TTH", "TTT"], favOutcomes: ["HHH"] }
+    },
+    {
+      prompt: "Harper flips two fair coins. How would you describe the event: at most 2 coins land on heads?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "Since only 2 coins are flipped, the number of heads is always 0, 1, or 2. All outcomes match, so P = 1 (certain).",
+      diagramData: { mode: "coins", n: 2, outcomes: ["HH", "HT", "TH", "TT"], favOutcomes: ["HH", "HT", "TH", "TT"] }
+    },
+    {
+      prompt: "Ethan flips three fair coins. How would you describe the event: there are 5 heads in total?",
+      options: ["Impossible", "Unlikely", "Certain", "Likely"],
+      correctIndex: 0,
+      explanation: "Only 3 coins were flipped, so getting 5 heads has 0 favourable outcomes (P = 0, impossible).",
+      diagramData: { mode: "coins", n: 3, outcomes: ["HHH", "HHT", "HTH", "HTT", "THH", "THT", "TTH", "TTT"], favOutcomes: [] }
+    },
+    {
+      prompt: "Liam flips two fair coins. What is the probability that at least one coin lands on heads?",
+      options: ["3/4", "1/4", "1/2", "1"],
+      correctIndex: 0,
+      explanation: "Favourable outcomes are HH, HT, TH (3 out of 4), so P = 3/4.",
+      diagramData: { mode: "coins", n: 2, outcomes: ["HH", "HT", "TH", "TT"], favOutcomes: ["HH", "HT", "TH"] }
+    }
   ],
+
   3: [
-    ["all three coins land on heads", o => o === "HHH"], ["at least one coin lands on tails", o => o.includes("T")],
-    ["exactly two coins land on heads", o => (o.match(/H/g) || []).length === 2],
-    ["four coins land on heads", () => false],
-    ["at most 3 coins land on heads", () => true],
-    ["there are more than 3 tails", () => false],
-    ["at least one coin lands on heads or tails", () => true]
+    {
+      prompt: "Maya spins a wheel with 6 equal sections, all gold. How would you describe landing on gold?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "Every section is gold, so landing on gold has 6 out of 6 favourable outcomes. P = 1 (certain).",
+      diagramData: { mode: "spinner", wedges: ["gold", "gold", "gold", "gold", "gold", "gold"], favColors: ["gold"] }
+    },
+    {
+      prompt: "Lucas spins a wheel with 4 red sections and 4 blue sections. What is the probability of landing on yellow?",
+      options: ["0", "1/2", "1/4", "1"],
+      correctIndex: 0,
+      explanation: "There are 0 yellow sections on the wheel, so P = 0 (impossible).",
+      diagramData: { mode: "spinner", wedges: ["red", "red", "red", "red", "blue", "blue", "blue", "blue"], favColors: ["yellow"] }
+    },
+    {
+      prompt: "Ava spins a wheel with 8 equal sections: 4 blue, 2 red, 2 green. What is the probability of landing on blue?",
+      options: ["1/2", "1/4", "3/4", "1/8"],
+      correctIndex: 0,
+      explanation: "4 blue sections out of 8 total sections gives P = 4/8 = 1/2.",
+      diagramData: { mode: "spinner", wedges: ["blue", "blue", "blue", "blue", "red", "red", "green", "green"], favColors: ["blue"] }
+    },
+    {
+      prompt: "Oliver spins a wheel with 5 equal sections, all red. What is the probability of landing on blue?",
+      options: ["0", "1/5", "1", "4/5"],
+      correctIndex: 0,
+      explanation: "0 blue sections out of 5 total sections gives P = 0 (impossible).",
+      diagramData: { mode: "spinner", wedges: ["red", "red", "red", "red", "red"], favColors: ["blue"] }
+    },
+    {
+      prompt: "Charlotte spins a wheel with 10 equal sections: 5 gold and 5 silver. What is the probability of landing on gold as a percentage?",
+      options: ["50%", "100%", "0%", "25%"],
+      correctIndex: 0,
+      explanation: "5 out of 10 sections is 1/2, which equals 50%.",
+      diagramData: { mode: "spinner", wedges: ["gold", "gold", "gold", "gold", "gold", "silver", "silver", "silver", "silver", "silver"], favColors: ["gold"] }
+    },
+    {
+      prompt: "Noah spins a wheel with 4 equal sections: 1 red, 1 blue, 1 green, 1 yellow. What is the probability of landing on red?",
+      options: ["1/4", "1/2", "3/4", "0"],
+      correctIndex: 0,
+      explanation: "1 favourable section out of 4 gives P = 1/4.",
+      diagramData: { mode: "spinner", wedges: ["red", "blue", "green", "yellow"], favColors: ["red"] }
+    },
+    {
+      prompt: "Mia spins a wheel with 6 equal sections, all purple. What is the probability of landing on purple as a decimal?",
+      options: ["1", "0", "0.5", "0.6"],
+      correctIndex: 0,
+      explanation: "All 6 sections are purple, so P = 6/6 = 1.",
+      diagramData: { mode: "spinner", wedges: ["purple", "purple", "purple", "purple", "purple", "purple"], favColors: ["purple"] }
+    },
+    {
+      prompt: "Ethan spins a wheel with 8 equal sections: 2 red, 2 blue, 2 green, 2 yellow. The event landing on red has probability 1/4. What is the probability of NOT landing on red?",
+      options: ["3/4", "1/4", "1/2", "1"],
+      correctIndex: 0,
+      explanation: "P(not red) = 1 − 1/4 = 3/4.",
+      diagramData: { mode: "line", marker: 1 / 4, label: "P(E)" }
+    },
+    {
+      prompt: "Harper spins a wheel with 12 equal sections: 6 red and 6 blue. How would you describe landing on red or blue?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "Every section is either red or blue. All 12 outcomes are favourable, so P = 12/12 = 1 (certain).",
+      diagramData: { mode: "spinner", wedges: ["red", "red", "red", "red", "red", "red", "blue", "blue", "blue", "blue", "blue", "blue"], favColors: ["red", "blue"] }
+    },
+    {
+      prompt: "Jack spins a wheel with 5 green sections. How would you describe landing on red?",
+      options: ["Impossible", "Certain", "Unlikely", "Likely"],
+      correctIndex: 0,
+      explanation: "There are 0 red sections on the wheel, so P = 0 (impossible).",
+      diagramData: { mode: "spinner", wedges: ["green", "green", "green", "green", "green"], favColors: ["red"] }
+    }
+  ],
+
+  4: [
+    {
+      prompt: "Leo picks one card at random from a standard 52-card deck. How would you describe picking a card with the number 15?",
+      options: ["Impossible", "Certain", "Unlikely", "Likely"],
+      correctIndex: 0,
+      explanation: "Standard playing cards only go up to King (10, Jack, Queen, King). There is no 15, so P = 0 (impossible).",
+      diagramData: { mode: "cards" }
+    },
+    {
+      prompt: "Emma picks one card at random from a standard 52-card deck. How would you describe picking a red or black card?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "Every card in a standard deck is either red (hearts/diamonds) or black (spades/clubs). P = 52/52 = 1 (certain).",
+      diagramData: { mode: "cards" }
+    },
+    {
+      prompt: "Alex picks one card from a deck of 52 cards. What is the probability of picking a heart?",
+      options: ["1/4", "1/2", "1/13", "1/52"],
+      correctIndex: 0,
+      explanation: "There are 13 hearts in a 52-card deck, so P = 13/52 = 1/4.",
+      diagramData: { mode: "cards" }
+    },
+    {
+      prompt: "Chloe picks one card from a 52-card deck. What is the probability of picking an Ace?",
+      options: ["1/13", "1/4", "1/52", "4/13"],
+      correctIndex: 0,
+      explanation: "There are 4 Aces in a deck of 52 cards, so P = 4/52 = 1/13.",
+      diagramData: { mode: "cards" }
+    },
+    {
+      prompt: "Noah picks one card from a 52-card deck. How would you describe picking a black heart?",
+      options: ["Impossible", "Unlikely", "Certain", "Likely"],
+      correctIndex: 0,
+      explanation: "All hearts in a standard deck are red. There are 0 black hearts, so P = 0 (impossible).",
+      diagramData: { mode: "cards" }
+    },
+    {
+      prompt: "Sophia picks one card from a 52-card deck. What is the probability of picking a red card?",
+      options: ["1/2", "1/4", "3/4", "1"],
+      correctIndex: 0,
+      explanation: "26 cards out of 52 are red (hearts and diamonds), so P = 26/52 = 1/2.",
+      diagramData: { mode: "cards" }
+    },
+    {
+      prompt: "Mason picks one card from a 52-card deck. The event picking a red card has probability 1/2. What is the probability of NOT picking a red card?",
+      options: ["1/2", "1/4", "0", "1"],
+      correctIndex: 0,
+      explanation: "P(not red) = 1 − 1/2 = 1/2.",
+      diagramData: { mode: "line", marker: 1 / 2, label: "P(E)" }
+    },
+    {
+      prompt: "Ella picks one card from a 52-card deck. How would you describe picking a card that belongs to one of the four suits?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "Every card belongs to hearts, diamonds, clubs, or spades. P = 52/52 = 1 (certain).",
+      diagramData: { mode: "cards" }
+    },
+    {
+      prompt: "James picks one card from a 52-card deck. What is the probability of picking a King?",
+      options: ["1/13", "1/4", "1/52", "2/13"],
+      correctIndex: 0,
+      explanation: "There are 4 Kings in a deck of 52 cards, so P = 4/52 = 1/13.",
+      diagramData: { mode: "cards" }
+    },
+    {
+      prompt: "Harper picks one card from a 52-card deck. How would you describe picking a red spade?",
+      options: ["Impossible", "Certain", "Unlikely", "Likely"],
+      correctIndex: 0,
+      explanation: "All spades are black. There are 0 red spades, so P = 0 (impossible).",
+      diagramData: { mode: "cards" }
+    }
+  ],
+
+  5: [
+    {
+      prompt: "Leo picks a month of the year at random. How would you describe picking a month with 32 days?",
+      options: ["Impossible", "Certain", "Unlikely", "Likely"],
+      correctIndex: 0,
+      explanation: "No month in the calendar has 32 days (max is 31). Favourable outcomes = 0, so P = 0 (impossible).",
+      diagramData: { mode: "tokens", items: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], favIdx: [] }
+    },
+    {
+      prompt: "Emma picks a day of the week at random. How would you describe picking a day that has the letter y in its name?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday all end with y. All 7 outcomes match, so P = 1 (certain).",
+      diagramData: { mode: "tokens", items: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], favIdx: [0, 1, 2, 3, 4, 5, 6] }
+    },
+    {
+      prompt: "Alex picks a month of the year at random. How would you describe picking a month with fewer than 32 days?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "All 12 months have 28, 30, or 31 days, which are all fewer than 32. P = 12/12 = 1 (certain).",
+      diagramData: { mode: "tokens", items: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], favIdx: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
+    },
+    {
+      prompt: "Chloe picks a day of the week at random. What is the probability of picking a weekend day (Saturday or Sunday)?",
+      options: ["2/7", "5/7", "1/7", "3/7"],
+      correctIndex: 0,
+      explanation: "2 out of 7 days are weekend days, so P = 2/7.",
+      diagramData: { mode: "tokens", items: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], favIdx: [5, 6] }
+    },
+    {
+      prompt: "Noah picks a month of the year at random. How would you describe picking a month with fewer than 28 days?",
+      options: ["Impossible", "Unlikely", "Certain", "Likely"],
+      correctIndex: 0,
+      explanation: "February has at least 28 days, so no month has fewer than 28 days. P = 0 (impossible).",
+      diagramData: { mode: "tokens", items: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], favIdx: [] }
+    },
+    {
+      prompt: "Sophia picks a day of the week at random. What is the probability of picking a day starting with the letter T?",
+      options: ["2/7", "1/7", "3/7", "5/7"],
+      correctIndex: 0,
+      explanation: "Tuesday and Thursday start with T, so 2 out of 7 days match. P = 2/7.",
+      diagramData: { mode: "tokens", items: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], favIdx: [1, 3] }
+    },
+    {
+      prompt: "Mason picks a month of the year at random. What is the probability of picking a month starting with the letter J?",
+      options: ["1/4", "1/2", "1/3", "1/6"],
+      correctIndex: 0,
+      explanation: "January, June, and July start with J. 3 out of 12 months match, so P = 3/12 = 1/4.",
+      diagramData: { mode: "tokens", items: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], favIdx: [0, 5, 6] }
+    },
+    {
+      prompt: "Ella picks a day of the week at random. The probability of picking a weekend day is 2/7. What is the probability of picking a weekday?",
+      options: ["5/7", "2/7", "1/7", "1"],
+      correctIndex: 0,
+      explanation: "P(weekday) = 1 − P(weekend) = 1 − 2/7 = 5/7.",
+      diagramData: { mode: "line", marker: 2 / 7, label: "P(E)" }
+    },
+    {
+      prompt: "James picks a month of the year at random. What is the probability of picking a month in the first half of the year (January to June)?",
+      options: ["1/2", "1/4", "3/4", "1"],
+      correctIndex: 0,
+      explanation: "6 out of 12 months are in the first half, so P = 6/12 = 1/2.",
+      diagramData: { mode: "tokens", items: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], favIdx: [0, 1, 2, 3, 4, 5] }
+    },
+    {
+      prompt: "Harper picks a day of the week at random. How would you describe picking a day with fewer than 10 letters in its name?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "Wednesday (9 letters) is the longest day name. All 7 days have 9 or fewer letters, so P = 7/7 = 1 (certain).",
+      diagramData: { mode: "tokens", items: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], favIdx: [0, 1, 2, 3, 4, 5, 6] }
+    }
+  ],
+
+  6: [
+    {
+      prompt: "Maya's candy jar holds 6 red candies and 0 green candies. How would you describe drawing a green candy?",
+      options: ["Impossible", "Certain", "Likely", "Unlikely"],
+      correctIndex: 0,
+      explanation: "There are 0 green candies in the jar, so P = 0. It is impossible.",
+      diagramData: { mode: "bag", counts: { red: 6 }, favColors: ["green"], unit: "candy" }
+    },
+    {
+      prompt: "Lucas's candy jar holds 10 chocolate candies. What is the probability of drawing a chocolate candy?",
+      options: ["1", "0", "1/2", "9/10"],
+      correctIndex: 0,
+      explanation: "All 10 candies in the jar are chocolate, so P = 10/10 = 1 (certain).",
+      diagramData: { mode: "bag", counts: { chocolate: 10 }, favColors: ["chocolate"], unit: "candy" }
+    },
+    {
+      prompt: "Ava's candy jar holds 4 lemon, 4 strawberry, and 4 mint candies. What is the probability of drawing a lemon candy?",
+      options: ["1/3", "1/4", "1/2", "2/3"],
+      correctIndex: 0,
+      explanation: "4 lemon candies out of 12 total candies gives P = 4/12 = 1/3.",
+      diagramData: { mode: "bag", counts: { lemon: 4, strawberry: 4, mint: 4 }, favColors: ["lemon"], unit: "candy" }
+    },
+    {
+      prompt: "Oliver's candy jar holds 5 apple candies and 5 grape candies. What is the probability of drawing an apple candy as a percentage?",
+      options: ["50%", "100%", "0%", "25%"],
+      correctIndex: 0,
+      explanation: "5 out of 10 candies is 1/2, which equals 50%.",
+      diagramData: { mode: "bag", counts: { apple: 5, grape: 5 }, favColors: ["apple"], unit: "candy" }
+    },
+    {
+      prompt: "Charlotte's candy jar holds 3 red candies and 3 blue candies. Which change makes drawing a red candy certain?",
+      options: ["Take out every candy that is not red", "Add 5 red candies", "Take out 2 red candies", "Add 1 blue candy"],
+      correctIndex: 0,
+      explanation: "Drawing red is certain only when every candy in the jar is red. Take out every candy that is not red.",
+      diagramData: { mode: "bag", counts: { red: 3, blue: 3 }, favColors: ["red"], unit: "candy" }
+    },
+    {
+      prompt: "Noah's candy jar holds 4 yellow candies and 2 blue candies. Which change makes drawing a blue candy impossible?",
+      options: ["Take out all 2 blue candies", "Add 3 yellow candies", "Take out 1 yellow candy", "Add 2 blue candies"],
+      correctIndex: 0,
+      explanation: "Drawing blue is impossible when there are 0 blue candies left in the jar. Take out all 2 blue candies.",
+      diagramData: { mode: "bag", counts: { yellow: 4, blue: 2 }, favColors: ["blue"], unit: "candy" }
+    },
+    {
+      prompt: "Mia's candy jar holds 8 fruit chews. What is the probability of drawing a sour candy that is not in the jar?",
+      options: ["0", "1/8", "1", "1/2"],
+      correctIndex: 0,
+      explanation: "Favourable outcomes = 0, so P = 0 (impossible).",
+      diagramData: { mode: "bag", counts: { fruit_chews: 8 }, favColors: ["sour"], unit: "candy" }
+    },
+    {
+      prompt: "Ethan's candy jar holds 5 red candies and 5 blue candies. The event drawing a red candy has probability 1/2. What is the probability of NOT drawing a red candy?",
+      options: ["1/2", "0", "1", "1/4"],
+      correctIndex: 0,
+      explanation: "P(not red) = 1 − P(red) = 1 − 1/2 = 1/2.",
+      diagramData: { mode: "line", marker: 1 / 2, label: "P(E)" }
+    },
+    {
+      prompt: "Harper's candy jar holds 7 orange candies and 0 purple candies. What is the probability of drawing an orange candy as a decimal?",
+      options: ["1", "0", "0.7", "0.5"],
+      correctIndex: 0,
+      explanation: "All 7 candies are orange, so P = 7/7 = 1.",
+      diagramData: { mode: "bag", counts: { orange: 7 }, favColors: ["orange"], unit: "candy" }
+    },
+    {
+      prompt: "Jack's candy jar holds 2 mints and 6 chocolates. What is the probability of drawing a mint?",
+      options: ["1/4", "3/4", "1/2", "1/8"],
+      correctIndex: 0,
+      explanation: "2 mints out of 8 total candies gives P = 2/8 = 1/4.",
+      diagramData: { mode: "bag", counts: { mint: 2, chocolate: 6 }, favColors: ["mint"], unit: "candy" }
+    }
+  ],
+
+  7: [
+    {
+      prompt: "Which of these numbers can NOT be the probability of an event?",
+      options: ["1.5", "0.5", "0.25", "0.8"],
+      correctIndex: 0,
+      explanation: "1.5 is greater than 1. Every probability must lie between 0 and 1.",
+      diagramData: { mode: "line", marker: null, label: "" }
+    },
+    {
+      prompt: "Which of these numbers COULD be the probability of an event?",
+      options: ["0.75", "1.2", "−0.3", "150%"],
+      correctIndex: 0,
+      explanation: "0.75 lies between 0 and 1, so it can be a probability. The others fall below 0 or above 1.",
+      diagramData: { mode: "line", marker: null, label: "" }
+    },
+    {
+      prompt: "The arrow on the probability line is at 0. How would you describe the event?",
+      options: ["Impossible", "Certain", "Even chance", "Likely"],
+      correctIndex: 0,
+      explanation: "0 on the probability line means the event is impossible.",
+      diagramData: { mode: "line", marker: 0, label: "P(E)" }
+    },
+    {
+      prompt: "The arrow on the probability line is at 1. How would you describe the event?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "1 on the probability line means the event is certain.",
+      diagramData: { mode: "line", marker: 1, label: "P(E)" }
+    },
+    {
+      prompt: "An arrow on the probability line points to 0.5. How would you describe the event?",
+      options: ["Even chance", "Impossible", "Certain", "Unlikely"],
+      correctIndex: 0,
+      explanation: "0.5 is halfway between 0 and 1, which represents an even chance.",
+      diagramData: { mode: "line", marker: 0.5, label: "P(E)" }
+    },
+    {
+      prompt: "Which statement about probability is TRUE?",
+      options: ["An impossible event has a probability of 0.", "A probability can be bigger than 1.", "An unlikely event has a probability of 0.", "P(A) and P(not A) add up to 2."],
+      correctIndex: 0,
+      explanation: "An impossible event has 0 favourable outcomes, so its probability is strictly 0.",
+      diagramData: { mode: "line", marker: null, label: "" }
+    },
+    {
+      prompt: "Which statement about probability is FALSE?",
+      options: ["A probability can be bigger than 1 if an event is very likely.", "A certain event has a probability of 1.", "Every probability lies between 0 and 1.", "P(A) + P(not A) = 1."],
+      correctIndex: 0,
+      explanation: "No probability can be bigger than 1. 1 is the absolute maximum, meaning certain.",
+      diagramData: { mode: "line", marker: null, label: "" }
+    },
+    {
+      prompt: "If an event A has probability 0.3 on the probability line, what is the probability of the opposite event (not A)?",
+      options: ["0.7", "0.3", "1.3", "0"],
+      correctIndex: 0,
+      explanation: "P(not A) = 1 − P(A) = 1 − 0.3 = 0.7.",
+      diagramData: { mode: "line", marker: 0.3, label: "P(A)" }
+    },
+    {
+      prompt: "Which of these numbers can NOT be a probability?",
+      options: ["−0.2", "0", "1", "0.99"],
+      correctIndex: 0,
+      explanation: "−0.2 is negative. Probabilities can never be below 0.",
+      diagramData: { mode: "line", marker: null, label: "" }
+    },
+    {
+      prompt: "If an event is certain, where does it sit on the probability line from 0 to 1?",
+      options: ["1", "0", "0.5", "0.9"],
+      correctIndex: 0,
+      explanation: "Certain events sit at exactly 1 (or 100%) on the probability line.",
+      diagramData: { mode: "line", marker: 1, label: "Certain" }
+    }
+  ],
+
+  8: [
+    {
+      prompt: "Leo rolls two fair six-sided dice and adds the numbers. How would you describe the event: the sum is 13?",
+      options: ["Impossible", "Certain", "Unlikely", "Likely"],
+      correctIndex: 0,
+      explanation: "The maximum possible sum with two dice is 6 + 6 = 12. A sum of 13 has 0 outcomes, so P = 0 (impossible).",
+      diagramData: { mode: "twodice", grid: Array(36).fill(false) }
+    },
+    {
+      prompt: "Emma rolls two fair six-sided dice and adds the numbers. How would you describe the event: the sum is 1?",
+      options: ["Impossible", "Certain", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "The minimum possible sum with two dice is 1 + 1 = 2. A sum of 1 is impossible (P = 0).",
+      diagramData: { mode: "twodice", grid: Array(36).fill(false) }
+    },
+    {
+      prompt: "Alex rolls two fair six-sided dice and adds the numbers. How would you describe the event: the sum is less than 13?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "Every pair of faces adds up to between 2 and 12, which are all less than 13. All 36 outcomes match, so P = 1 (certain).",
+      diagramData: { mode: "twodice", grid: Array(36).fill(true) }
+    },
+    {
+      prompt: "Chloe rolls two fair six-sided dice and multiplies the numbers. How would you describe the event: the product is 0?",
+      options: ["Impossible", "Certain", "Unlikely", "Likely"],
+      correctIndex: 0,
+      explanation: "Dice faces are 1 to 6. No face is 0, so the product can never be 0. P = 0 (impossible).",
+      diagramData: { mode: "twodice", grid: Array(36).fill(false) }
+    },
+    {
+      prompt: "Noah rolls two fair six-sided dice and adds the numbers. What is the probability that the sum is 7?",
+      options: ["1/6", "1/12", "7/36", "1/36"],
+      correctIndex: 0,
+      explanation: "There are 6 ways to get a sum of 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) out of 36 outcomes, so P = 6/36 = 1/6.",
+      diagramData: { mode: "twodice", grid: Array(36).fill(false) }
+    },
+    {
+      prompt: "Sophia rolls two fair six-sided dice and adds the numbers. How would you describe the event: the sum is at least 2?",
+      options: ["Certain", "Impossible", "Unlikely", "Even chance"],
+      correctIndex: 0,
+      explanation: "The smallest sum is 1 + 1 = 2, so every outcome gives a sum of at least 2. P = 36/36 = 1 (certain).",
+      diagramData: { mode: "twodice", grid: Array(36).fill(true) }
+    },
+    {
+      prompt: "Mason rolls two fair six-sided dice. What is the probability that both dice show the same number (doubles)?",
+      options: ["1/6", "1/36", "1/12", "1/2"],
+      correctIndex: 0,
+      explanation: "Doubles are (1,1), (2,2), (3,3), (4,4), (5,5), (6,6) (6 outcomes out of 36), so P = 6/36 = 1/6.",
+      diagramData: { mode: "twodice", grid: Array(36).fill(false) }
+    },
+    {
+      prompt: "Ella rolls two fair six-sided dice. The event rolling doubles has probability 1/6. What is the probability of NOT rolling doubles?",
+      options: ["5/6", "1/6", "0", "1"],
+      correctIndex: 0,
+      explanation: "P(not doubles) = 1 − 1/6 = 5/6.",
+      diagramData: { mode: "line", marker: 1 / 6, label: "P(E)" }
+    },
+    {
+      prompt: "James rolls two fair six-sided dice and adds the numbers. What is the probability that the sum is 12?",
+      options: ["1/36", "1/6", "1/12", "0"],
+      correctIndex: 0,
+      explanation: "Only (6,6) gives a sum of 12 (1 outcome out of 36), so P = 1/36.",
+      diagramData: { mode: "twodice", grid: Array(36).fill(false) }
+    },
+    {
+      prompt: "Harper rolls two fair six-sided dice and adds the numbers. How would you describe the event: the sum is more than 12?",
+      options: ["Impossible", "Certain", "Unlikely", "Likely"],
+      correctIndex: 0,
+      explanation: "Maximum sum is 12. Favourable outcomes = 0, so P = 0 (impossible).",
+      diagramData: { mode: "twodice", grid: Array(36).fill(false) }
+    }
+  ],
+
+  9: [
+    {
+      prompt: "Detective Zara is inspecting a raffle box with 0 blue tokens and 10 red tokens. What is the probability of drawing a blue token?",
+      options: ["0", "1", "1/10", "1/2"],
+      correctIndex: 0,
+      explanation: "0 blue tokens means P(blue) = 0. Drawing blue is impossible.",
+      diagramData: { mode: "tokens", items: ["R", "R", "R", "R", "R", "R", "R", "R", "R", "R"], favIdx: [] }
+    },
+    {
+      prompt: "At the Festival Lucky Wheel, every section is gold. What is the probability of landing on gold?",
+      options: ["1", "0", "1/2", "3/4"],
+      correctIndex: 0,
+      explanation: "All sections are gold, so P = 1. Landing on gold is certain.",
+      diagramData: { mode: "spinner", wedges: ["gold", "gold", "gold", "gold", "gold", "gold"], favColors: ["gold"] }
+    },
+    {
+      prompt: "A smartphone factory batch has 15 working phones and 0 glitchy phones. What is the probability of picking a working phone?",
+      options: ["1", "0", "14/15", "1/15"],
+      correctIndex: 0,
+      explanation: "Every phone in the batch is working, so P = 15/15 = 1 (certain).",
+      diagramData: { mode: "bag", counts: { working: 15 }, favColors: ["working"], unit: "phone" }
+    },
+    {
+      prompt: "If P(Event A) = 0.8, what is the probability of the opposite event (not A)?",
+      options: ["0.2", "0.8", "1.8", "0"],
+      correctIndex: 0,
+      explanation: "P(not A) = 1 − P(A) = 1 − 0.8 = 0.2.",
+      diagramData: { mode: "line", marker: 0.8, label: "P(A)" }
+    },
+    {
+      prompt: "Which value on the probability line represents an event that is impossible?",
+      options: ["0", "1", "0.5", "0.1"],
+      correctIndex: 0,
+      explanation: "0 (or 0%) represents an impossible event.",
+      diagramData: { mode: "line", marker: 0, label: "Impossible" }
+    },
+    {
+      prompt: "Which value on the probability line represents an event that is certain?",
+      options: ["1", "0", "0.5", "0.9"],
+      correctIndex: 0,
+      explanation: "1 (or 100%) represents a certain event.",
+      diagramData: { mode: "line", marker: 1, label: "Certain" }
+    },
+    {
+      prompt: "Leo rolls a fair six-sided die. What is the probability of rolling a number greater than 6?",
+      options: ["0", "1/6", "1", "5/6"],
+      correctIndex: 0,
+      explanation: "Favourable outcomes = 0 out of 6, so P = 0 (impossible).",
+      diagramData: { mode: "die", faces: [1, 2, 3, 4, 5, 6], favFaces: [] }
+    },
+    {
+      prompt: "Maya has a bag with 4 red marbles and 4 blue marbles. What is the probability of drawing a red marble?",
+      options: ["1/2", "1/4", "3/4", "1"],
+      correctIndex: 0,
+      explanation: "4 red marbles out of 8 total marbles gives P = 4/8 = 1/2.",
+      diagramData: { mode: "bag", counts: { red: 4, blue: 4 }, favColors: ["red"], unit: "marble" }
+    },
+    {
+      prompt: "Which statement about probability is TRUE?",
+      options: ["Every probability lives between 0 and 1.", "A probability can be negative.", "Certain events have probability 0.", "Impossible events have probability 1."],
+      correctIndex: 0,
+      explanation: "Probabilities range strictly from 0 (impossible) to 1 (certain).",
+      diagramData: { mode: "line", marker: null, label: "" }
+    },
+    {
+      prompt: "You flip two fair coins. What is the probability of getting at least one head?",
+      options: ["3/4", "1/4", "1/2", "1"],
+      correctIndex: 0,
+      explanation: "Favourable outcomes are HH, HT, TH (3 out of 4), so P = 3/4.",
+      diagramData: { mode: "coins", n: 2, outcomes: ["HH", "HT", "TH", "TT"], favOutcomes: ["HH", "HT", "TH"] }
+    }
   ]
 };
 
-function coinScenario(kind, name, diff) {
-  const n = diff <= 2 ? pick([1, 2]) : pick([2, 3]);
-  const outcomes = coinOutcomes(n);
-  const list = COIN_EVENTS[n].map(([text, pred]) => ({ text, pred, fav: outcomes.filter(pred).length }));
-  let pool = list.filter(x => kindOf(x.fav, outcomes.length) === kind);
-  if (!pool.length) pool = list;
-  const e = pick(pool);
-  const coinWord = n === 1 ? "a fair coin" : n === 2 ? "two fair coins" : "three fair coins";
-  return {
-    setup: `${name} flips ${coinWord}.`,
-    event: e.text, fav: e.fav, total: outcomes.length,
-    diagram: { mode: "coins", n, outcomes, favOutcomes: outcomes.filter(e.pred) }
-  };
-}
-
-/* ---- Standard cards ---- */
-const CARD_EVENTS = [
-  ["the card has the number 15", 0], ["the card is a black heart", 0], ["the card is a red spade", 0],
-  ["the card is red or black", 52], ["the card belongs to one of the four suits", 52],
-  ["the card is a heart", 13], ["the card is a club", 13], ["the card is a red card", 26],
-  ["the card is a black card", 26], ["the card is a heart or a diamond", 26], ["the card is a king", 4],
-  ["the card is an ace", 4], ["the card is a face card (jack, queen or king)", 12]
-];
-function cardScenario(kind, name) {
-  const list = CARD_EVENTS.map(([text, fav]) => ({ text, fav }));
-  const pool = list.filter(x => kindOf(x.fav, 52) === kind);
-  const e = pick(pool.length ? pool : list);
-  return {
-    setup: `${name} picks one card at random from a standard 52-card deck.`,
-    event: e.text, fav: e.fav, total: 52,
-    diagram: { mode: "cards" }
-  };
-}
-
-/* ---- Number tokens & letter tiles ---- */
-const TOKEN_SETS = [[2, 4, 6, 8, 10], [1, 3, 5, 7, 9], [3, 6, 9, 12, 15], [5, 10, 15, 20, 25], [2, 4, 6, 8, 10, 12], [10, 20, 30, 40]];
-const TOKEN_PREDS = [
-  ["is even", n => n % 2 === 0], ["is odd", n => n % 2 === 1], ["is a multiple of 5", n => n % 5 === 0],
-  ["is a multiple of 3", n => n % 3 === 0], ["is greater than 10", n => n > 10], ["is greater than 100", n => n > 100],
-  ["is less than 50", n => n < 50], ["is less than 100", n => n < 100], ["is a prime number", n => [2, 3, 5, 7, 11].includes(n)],
-  ["is a whole number", () => true], ["is a fraction between 0 and 1", () => false], ["is greater than 6", n => n > 6]
-];
-function numberScenario(kind, name) {
-  for (let tries = 0; tries < 40; tries++) {
-    const set = pick(TOKEN_SETS);
-    const [text, pred] = pick(TOKEN_PREDS);
-    const fav = set.filter(pred).length;
-    if (kindOf(fav, set.length) !== kind) continue;
-    return {
-      setup: `Tokens numbered ${joinList(set.map(String))} are placed in a bag. ${name} picks one at random.`,
-      event: `the number ${text}`, fav, total: set.length,
-      diagram: { mode: "tokens", items: set.map(String), favIdx: set.map((n, i) => (pred(n) ? i : -1)).filter(i => i >= 0) }
-    };
-  }
-  return numberScenario(kind === "impossible" ? "certain" : "impossible", name);
-}
-
-const WORDS = ["MATH", "SAMPLE", "EVENT", "CERTAIN", "MARBLE", "CHANCE", "OUTCOME", "RANDOM"];
-const VOWELS = "AEIOU";
-function letterScenario(kind, name) {
-  for (let tries = 0; tries < 60; tries++) {
-    const word = pick(WORDS);
-    const letters = word.split("");
-    const options = [
-      ["the letter is a vowel", l => VOWELS.includes(l)],
-      ["the letter is a consonant", l => !VOWELS.includes(l)],
-      ["the letter is a letter of the alphabet", () => true],
-      [`the letter is ${pick(["Z", "Q", "X", "J"])}`, null],
-      [`the letter is ${pick(letters)}`, null]
-    ];
-    const [text, pred0] = pick(options);
-    const pred = pred0 || (l => l === text.slice(-1));
-    const fav = letters.filter(pred).length;
-    if (kindOf(fav, letters.length) !== kind) continue;
-    return {
-      setup: `Letter tiles spelling the word ${word} are placed in a bag. ${name} picks one tile at random.`,
-      event: text, fav, total: letters.length,
-      diagram: { mode: "tokens", items: letters, favIdx: letters.map((l, i) => (pred(l) ? i : -1)).filter(i => i >= 0) }
-    };
-  }
-  return letterScenario(kind === "impossible" ? "certain" : "impossible", name);
-}
-
-/* ---- Calendar ---- */
-const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const DAY_EVENTS = [
-  ["has the letter y in its name", d => d.toLowerCase().includes("y")],
-  ["has fewer than 10 letters in its name", d => d.length < 10],
-  ["has more than 9 letters in its name", d => d.length > 9],
-  ["starts with the letter T", d => d.startsWith("T")],
-  ["is a weekend day", d => d === "Saturday" || d === "Sunday"],
-  ["comes after Friday", d => d === "Saturday" || d === "Sunday"]
-];
-const MONTH_EVENTS = [
-  ["has 32 days", (m, i) => MONTH_DAYS[i] === 32],
-  ["has fewer than 28 days", (m, i) => MONTH_DAYS[i] < 28],
-  ["has fewer than 32 days", (m, i) => MONTH_DAYS[i] < 32],
-  ["has 31 days", (m, i) => MONTH_DAYS[i] === 31],
-  ["has 30 days", (m, i) => MONTH_DAYS[i] === 30],
-  ["starts with the letter J", m => m.startsWith("J")],
-  ["is in the first half of the year", (m, i) => i < 6]
-];
-function calendarScenario(kind, name) {
-  for (let tries = 0; tries < 60; tries++) {
-    const useDays = Math.random() < 0.5;
-    const items = useDays ? DAYS : MONTHS;
-    const [text, pred] = pick(useDays ? DAY_EVENTS : MONTH_EVENTS);
-    const favIdx = items.map((x, i) => (pred(x, i) ? i : -1)).filter(i => i >= 0);
-    if (kindOf(favIdx.length, items.length) !== kind) continue;
-    return {
-      setup: useDays
-        ? `${name} picks a day of the week at random.`
-        : `${name} picks a month of the year at random.`,
-      event: `the ${useDays ? "day" : "month"} ${text}`, fav: favIdx.length, total: items.length,
-      diagram: { mode: "tokens", items: items.map(x => x.slice(0, 3)), favIdx }
-    };
-  }
-  return calendarScenario(kind === "impossible" ? "certain" : "impossible", name);
-}
-
-/* ---- Two dice ---- */
-const TWO_DICE_EVENTS = [
-  ["the sum is 13", (a, b) => a + b === 13], ["the sum is 1", (a, b) => a + b === 1],
-  ["the product is 0", (a, b) => a * b === 0], ["the sum is more than 12", (a, b) => a + b > 12],
-  ["the sum is less than 13", (a, b) => a + b < 13], ["the sum is at least 2", (a, b) => a + b >= 2],
-  ["the product is at least 1", (a, b) => a * b >= 1], ["the sum is at most 12", (a, b) => a + b <= 12],
-  ["the sum is 7", (a, b) => a + b === 7], ["the sum is 12", (a, b) => a + b === 12], ["the sum is 2", (a, b) => a + b === 2],
-  ["the sum is greater than 10", (a, b) => a + b > 10], ["the sum is even", (a, b) => (a + b) % 2 === 0],
-  ["the sum is a multiple of 5", (a, b) => (a + b) % 5 === 0], ["both dice show the same number", (a, b) => a === b],
-  ["the sum is 6 or less", (a, b) => a + b <= 6]
-];
-function twoDiceScenario(kind, name) {
-  const pairs = [];
-  for (let a = 1; a <= 6; a++) for (let b = 1; b <= 6; b++) pairs.push([a, b]);
-  const list = TWO_DICE_EVENTS.map(([text, pred]) => ({ text, pred, fav: pairs.filter(([a, b]) => pred(a, b)).length }));
-  const pool = list.filter(x => kindOf(x.fav, 36) === kind);
-  const e = pick(pool.length ? pool : list);
-  return {
-    setup: `${name} rolls two fair six-sided dice and adds the numbers.`,
-    event: e.text, fav: e.fav, total: 36,
-    diagram: { mode: "twodice", grid: pairs.map(([a, b]) => e.pred(a, b)) }
-  };
-}
-
-function makeScenario(theme, kind, name, diff) {
-  switch (theme) {
-    case "die": return dieScenario(kind, name);
-    case "bag": return colorScenario(kind, "marble", name);
-    case "candy": return colorScenario(kind, "candy", name);
-    case "spinner": return colorScenario(kind, "spinner", name);
-    case "coin": return coinScenario(kind, name, diff);
-    case "cards": return cardScenario(kind, name);
-    case "tokens": return numberScenario(kind, name);
-    case "letters": return letterScenario(kind, name);
-    case "calendar": return calendarScenario(kind, name);
-    case "twodice": return twoDiceScenario(kind, name);
-    default: return dieScenario(kind, name);
-  }
-}
-
-/* ---------------------------------------------------------------------- */
-/* Explanations & option builders                                          */
-/* ---------------------------------------------------------------------- */
-function explainProbability(fav, total) {
-  const st = probStatus(fav, total);
-  if (fav === 0) return `There are 0 favourable outcomes out of ${total}, so P = 0/${total} = 0. It can never happen, so it is impossible.`;
-  if (fav === total) return `All ${total} outcomes are favourable, so P = ${total}/${total} = 1. It always happens, so it is certain.`;
-  const red = fracText(fav, total);
-  const same = red === `${fav}/${total}`;
-  return `${fav} of the ${total} outcomes ${fav === 1 ? "is" : "are"} favourable, so P = ${fav}/${total}${same ? "" : ` = ${red}`}. That is between 0 and 1, so it is possible but not certain (${st.label.toLowerCase()}).`;
-}
-
-/** Decide ONE number style (fraction / decimal / percent) that suits every pair */
-function styleFor(pairs, allowStyles) {
-  const ok = [];
-  if (allowStyles.includes("dec") && pairs.every(([n, d]) => decText(n, d) !== null)) ok.push("dec");
-  if (allowStyles.includes("pct") && pairs.every(([n, d]) => pctText(n, d) !== null)) ok.push("pct");
-  return ok.length && Math.random() < 0.6 ? pick(ok) : "frac";
-}
-
-function fmt(style, [n, d]) {
-  return style === "dec" ? decText(n, d) : style === "pct" ? pctText(n, d) : fracText(n, d);
-}
-
-function finalize(correct, distractors) {
-  const seen = new Set([correct]);
-  const uniq = [];
-  for (const d of distractors) {
-    if (!seen.has(d)) { seen.add(d); uniq.push(d); }
-  }
-  const options = shuffle([correct, ...uniq.slice(0, 3)]);
-  return { options, correctIndex: options.indexOf(correct) };
-}
-
-/**
- * Build 4 probability options (1 correct + 3 typical-mistake distractors).
- * `style` forces fraction / decimal / percent; otherwise it is chosen to suit all options.
- */
-function probabilityOptions(fav, total, allowStyles, extra = [], forcedStyle = null) {
-  const correct = [fav, total];
-  const cand = [];
-  const push = (n, d) => { if (d > 0 && n >= 0) cand.push([n, d]); };
-  push(total - fav, total);                   // used the complement
-  if (total - fav > 0) push(fav, total - fav); // odds instead of probability
-  if (fav > 0) push(total, fav);               // upside-down fraction
-  push(fav + 1, total);
-  if (fav === 0) { push(1, total); push(1, 2); push(1, 1); }
-  if (fav === total) { push(total - 1, total); push(1, 2); push(0, 1); }
-  extra.forEach(([n, d]) => push(n, d));
-  push(1, 2); push(1, 4); push(3, 4); push(1, 5); push(2, 5); push(1, 10);
-
-  const usable = c => !forcedStyle || forcedStyle === "frac" || fmt(forcedStyle, c) !== null;
-  const chosen = [];
-  const all = [correct];
-  for (const c of shuffle(cand.slice(0, 5)).concat(cand.slice(5))) {
-    if (!usable(c) || all.some(x => sameFraction(x, c))) continue;
-    all.push(c);
-    chosen.push(c);
-    if (chosen.length === 3) break;
-  }
-  const pairs = [correct, ...chosen];
-  const style = forcedStyle || styleFor(pairs, allowStyles);
-  const texts = pairs.map(pr => fmt(style, pr));
-  return { ...finalize(texts[0], texts.slice(1)), style };
-}
-
-const LEVELS = ["Impossible", "Unlikely", "Even chance", "Likely", "Certain"];
-function classifyOptions(fav, total) {
-  const st = probStatus(fav, total).label;
-  let others;
-  if (st === "Impossible") others = ["Certain", "Unlikely", "Likely"];
-  else if (st === "Certain") others = ["Impossible", "Likely", "Unlikely"];
-  else {
-    const rest = LEVELS.filter(l => l !== st && l !== "Impossible" && l !== "Certain");
-    others = ["Impossible", "Certain", pick(rest)];
-  }
-  return finalize(st, others);
-}
-
-/* ---------------------------------------------------------------------- */
-/* Question archetypes                                                    */
-/* ---------------------------------------------------------------------- */
-function qClassify(sc) {
-  const { options, correctIndex } = classifyOptions(sc.fav, sc.total);
-  return {
-    prompt: `${sc.setup} How would you describe the event: ${sc.event}?`,
-    options, correctIndex, diagramData: sc.diagram,
-    explanation: explainProbability(sc.fav, sc.total),
-    meta: { fav: sc.fav, total: sc.total }
-  };
-}
-
-function qProbValue(sc, diff) {
-  const styles = diff >= 4 ? ["dec", "pct"] : diff >= 3 ? ["dec"] : [];
-  const { options, correctIndex } = probabilityOptions(sc.fav, sc.total, styles);
-  return {
-    prompt: `${sc.setup} What is the probability of the event: ${sc.event}?`,
-    options, correctIndex, diagramData: sc.diagram,
-    explanation: explainProbability(sc.fav, sc.total),
-    meta: { fav: sc.fav, total: sc.total }
-  };
-}
-
-function qComplement(sc, diff) {
-  const f = sc.fav, t = sc.total;
-  const compFav = t - f;
-  const styles = diff >= 4 ? ["dec", "pct"] : diff >= 3 ? ["dec"] : [];
-  const style = styleFor([[f, t], [compFav, t]], styles);
-  const { options, correctIndex } = probabilityOptions(compFav, t, styles, [[f, t]], style);
-  const pText = fmt(style, [f, t]);
-  const cText = fmt(style, [compFav, t]);
-  return {
-    prompt: `${sc.setup} The event "${sc.event}" has probability ${pText}. What is the probability that it does NOT happen?`,
-    options, correctIndex,
-    diagramData: { mode: "line", marker: f / t, label: "P(E)" },
-    explanation: `P(not E) = 1 − P(E) = 1 − ${pText} = ${cText}.${f === 0 ? " An impossible event has a certain opposite!" : f === t ? " A certain event has an impossible opposite!" : ""}`,
-    meta: { fav: compFav, total: t }
-  };
-}
-
-function qMakeChange(name, unit) {
-  const noun = unit === "candy" ? "candy" : "marble";
-  const nounPl = unit === "candy" ? "candies" : "marbles";
-  const holder = unit === "candy" ? "jar" : "bag";
-  const [c, o1, o2] = shuffle(COLORS).slice(0, 3);
-  const goal = Math.random() < 0.5 ? "impossible" : "certain";
-  const counts = goal === "impossible"
-    ? { [c]: randInt(2, 4), [o1]: randInt(1, 4), [o2]: randInt(1, 3) }
-    : { [c]: randInt(2, 4), [o1]: randInt(1, 3), [o2]: randInt(1, 3) };
-  if (Math.random() < 0.35) delete counts[o2];
-  if (goal === "certain" && !counts[o2] && counts[o1] < 2) counts[o1] = 2;
-  const cols = Object.keys(counts);
-  const others = cols.filter(x => x !== c);
-  const nOthers = others.reduce((s, x) => s + counts[x], 0);
-  const desc = joinList(cols.map(x => `${counts[x]} ${x}`));
-  const prompt = `${name}'s ${holder} holds ${desc} ${nounPl}. Which change makes drawing a ${c} ${noun} ${goal}?`;
-
-  let correct, wrongs;
-  if (goal === "impossible") {
-    correct = `Take out all ${counts[c]} ${c} ${nounPl}`;
-    wrongs = [
-      `Add 3 more ${c} ${nounPl}`,
-      `Take out ${counts[c] - 1} of the ${c} ${nounPl}`,
-      `Add 2 ${pick(others)} ${nounPl}`,
-      `Take out all the ${pick(others)} ${nounPl}`
-    ];
-  } else {
-    correct = `Take out every ${noun} that is not ${c}`;
-    wrongs = [
-      `Add 5 more ${c} ${nounPl}`,
-      `Take out all but one of the ${nounPl} that are not ${c}`,
-      `Take out all the ${c} ${nounPl}`,
-      `Add 1 ${c} ${noun} and take out 1 ${pick(others)} ${noun}`
-    ];
-  }
-  const { options, correctIndex } = finalize(correct, shuffle(wrongs));
-  return {
-    prompt, options, correctIndex,
-    diagramData: { mode: "bag", counts, favColors: [c], unit },
-    explanation: goal === "impossible"
-      ? `Drawing ${c} is impossible only when there are 0 ${c} ${nounPl} left, so P(${c}) = 0.`
-      : `Drawing ${c} is certain only when every ${noun} is ${c}, so P(${c}) = ${counts[c]}/${counts[c]} = 1. (Right now ${nOthers} ${nounPl} are not ${c}.)`
-  };
-}
-
-const VALID_POOL = ["0", "1", "1/2", "3/4", "0.6", "0.05", "85%", "100%", "0%", "7/8", "2/5", "0.99", "1/3", "0.25", "5/6"];
-const INVALID_POOL = ["1.2", "−0.3", "3/2", "150%", "−1/4", "5/4", "2", "110%", "−5%", "1.05", "7/6", "101%", "−1"];
-function qValidProb(diff) {
-  const cannot = Math.random() < 0.5;
-  if (cannot) {
-    const bad = pick(INVALID_POOL);
-    const goods = shuffle(VALID_POOL).slice(0, 3);
-    const { options, correctIndex } = finalize(bad, goods);
-    return {
-      prompt: "Which of these numbers can NOT be the probability of an event?",
-      options, correctIndex, diagramData: { mode: "line", marker: null, label: "" },
-      explanation: `${bad} is outside the range 0 to 1, and every probability must lie between 0 and 1.`
-    };
-  }
-  const good = pick(VALID_POOL);
-  const bads = shuffle(INVALID_POOL).slice(0, 3);
-  const { options, correctIndex } = finalize(good, bads);
-  return {
-    prompt: "Which of these numbers COULD be the probability of an event?",
-    options, correctIndex, diagramData: { mode: "line", marker: null, label: "" },
-    explanation: `${good} lies between 0 and 1 (inclusive), so it can be a probability. The others fall below 0 or above 1.`
-  };
-}
-
-const LINE_POINTS = [[0, 1], [1, 4], [1, 2], [3, 4], [1, 1], [1, 10], [9, 10], [1, 5], [4, 5]];
-const TICK_POINTS = [[0, 1], [1, 4], [1, 2], [3, 4], [1, 1]];
-function qLineRead(diff, name) {
-  if (Math.random() < 0.5) {
-    const [n, d] = pick(LINE_POINTS);
-    const st = probStatus(n, d);
-    const { options, correctIndex } = classifyOptions(n, d);
-    return {
-      prompt: "The arrow on the probability line shows P(E) for an event E. How would you describe E?",
-      options, correctIndex, diagramData: { mode: "line", marker: n / d, label: "P(E)" },
-      explanation: `The arrow is at ${fracText(n, d)}. ${n === 0 ? "0 means impossible." : n === d ? "1 means certain." : `That is between 0 and 1, so E is possible but not certain (${st.label.toLowerCase()}).`}`,
-      meta: { fav: n, total: d }
-    };
-  }
-  const [n, d] = pick(TICK_POINTS);
-  const st = probStatus(n, d);
-  const target = {
-    impossible: "an impossible event", certain: "a certain event", even: "an event with an even chance",
-    unlikely: "an unlikely event", likely: "a likely event"
-  }[st.key];
-  const { options, correctIndex } = probabilityOptions(n, d, ["dec", "pct"]);
-  return {
-    prompt: `${name} marks ${target} on the probability line. Which value is under the arrow?`,
-    options, correctIndex, diagramData: { mode: "line", marker: n / d, label: "?" },
-    explanation: `On the line from 0 to 1, ${target} sits at ${fracText(n, d)}.`,
-    meta: { fav: n, total: d }
-  };
-}
-
-const TRUE_MYTHS = [
-  ["An impossible event has a probability of 0.", "An impossible event has no favourable outcomes, so P = 0."],
-  ["A certain event has a probability of 1.", "Every outcome is favourable, so P = 1."],
-  ["Every probability lies between 0 and 1, including 0 and 1.", "Probabilities can never be below 0 or above 1."],
-  ["If P(A) = 1, then the opposite event has probability 0.", "P(not A) = 1 − P(A) = 0."],
-  ["If P(A) = 0, then the opposite event is certain.", "P(not A) = 1 − 0 = 1."],
-  ["An event with no favourable outcomes can never happen.", "No favourable outcomes means P = 0."],
-  ["Taking every blue marble out of a bag makes drawing blue impossible.", "0 blue marbles means P(blue) = 0."],
-  ["If every outcome in the sample space is favourable, the event is certain.", "All outcomes favourable means P = 1."],
-  ["An event with probability 0.5 has an even chance of happening.", "0.5 is exactly halfway between impossible and certain."]
-];
-const FALSE_MYTHS = [
-  ["A probability can be bigger than 1 if the event is very likely.", "No! 1 is the maximum, and it means certain."],
-  ["An event with probability 0.99 is certain.", "Only P = 1 is certain. 0.99 is likely but not certain."],
-  ["An unlikely event is the same as an impossible event.", "Unlikely events have P above 0, so they CAN happen."],
-  ["A probability of −0.2 means an event is very unlikely.", "Probabilities can never be negative."],
-  ["After 5 heads in a row, tails becomes impossible.", "Tails still has P = 1/2 on the next flip. It is never impossible."],
-  ["A certain event has a probability of 0.", "A certain event has P = 1. It is impossible events that have P = 0."],
-  ["P(A) and P(not A) always add up to 2.", "They always add up to 1."],
-  ["Rolling a 6 on a fair die is impossible.", "6 is in the sample space, so P = 1/6, which is possible."],
-  ["A bag with 5 red marbles and 1 blue marble makes red certain.", "The blue marble means red is likely but NOT certain."]
-];
-function qMyth() {
-  const askTrue = Math.random() < 0.5;
-  if (askTrue) {
-    const t = pick(TRUE_MYTHS);
-    const fs = shuffle(FALSE_MYTHS).slice(0, 3);
-    const { options, correctIndex } = finalize(t[0], fs.map(x => x[0]));
-    return { prompt: "Which statement about probability is TRUE?", options, correctIndex, diagramData: { mode: "line", marker: null, label: "" }, explanation: t[1] };
-  }
-  const f = pick(FALSE_MYTHS);
-  const ts = shuffle(TRUE_MYTHS).slice(0, 3);
-  const { options, correctIndex } = finalize(f[0], ts.map(x => x[0]));
-  return { prompt: "Which statement about probability is FALSE?", options, correctIndex, diagramData: { mode: "line", marker: null, label: "" }, explanation: f[1] };
-}
-
-/* ---------------------------------------------------------------------- */
-/* Public API                                                             */
-/* ---------------------------------------------------------------------- */
-function buildOne(world) {
-  const name = pick(WESTERN_NAMES);
-  const diff = world.difficulty;
-  const archetype = pick(world.archetypes);
-  const theme = pick(world.themes);
-  const kind = chooseKind(diff);
-
-  let q;
-  switch (archetype) {
-    case "classify": q = qClassify(makeScenario(theme, kind, name, diff)); break;
-    case "prob_value": q = qProbValue(makeScenario(theme, kind, name, diff), diff); break;
-    case "complement": q = qComplement(makeScenario(theme === "abstract" ? "die" : theme, kind, name, diff), diff); break;
-    case "make_change": q = qMakeChange(name, theme === "candy" ? "candy" : "marble"); break;
-    case "valid_prob": q = qValidProb(diff); break;
-    case "line_read": q = qLineRead(diff, name); break;
-    case "myth": q = qMyth(); break;
-    default: q = qClassify(makeScenario("die", kind, name, diff));
-  }
-  return { world, name, archetype, ...q };
-}
-
-/**
- * Generate a procedural question for a given world.
- * `seen` (optional Set of prompts) keeps questions inside one run unique.
- */
 export function makeQuestion(worldIndex = 0, seen = null) {
-  const world = PRACTICE_WORLDS[worldIndex] || PRACTICE_WORLDS[0];
-  let q = buildOne(world);
-  for (let tries = 0; seen && seen.has(q.prompt) && tries < 25; tries++) q = buildOne(world);
+  const list = WORLD_QUESTIONS[worldIndex] || WORLD_QUESTIONS[0];
+  let available = list.filter(q => !seen || !seen.has(q.prompt));
+  if (available.length === 0) available = list;
+  const q = available[Math.floor(Math.random() * available.length)];
   if (seen) seen.add(q.prompt);
-  return q;
+  return { world: PRACTICE_WORLDS[worldIndex], ...q };
 }

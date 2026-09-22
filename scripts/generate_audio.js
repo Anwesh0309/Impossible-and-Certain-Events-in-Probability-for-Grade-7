@@ -13,6 +13,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { WORLD_QUESTIONS } from '../src/mathData.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -23,9 +24,9 @@ const MAP_FILE = path.join(ROOT, 'src', 'utils', 'audioMap.js');
 const VOICE_ID = 'Xb7hH8MSUJpSbSDYk0k2';       // Alice — Clear, Engaging Educator
 const MODEL_ID = 'eleven_multilingual_v2';
 const API_BASE = process.env.ELEVENLABS_BASE_URL || 'https://api.elevenlabs.io';
-const RATE_LIMIT_MS = 500;
+const RATE_LIMIT_MS = 300;
 
-/* ---- Voice settings by style (copied from numberbound) ---- */
+/* ---- Voice settings by style ---- */
 const VOICE_SETTINGS = {
   celebration:   { stability: 0.12, similarity_boost: 0.45, style: 0.75, use_speaker_boost: true },
   encouragement: { stability: 0.16, similarity_boost: 0.50, style: 0.65, use_speaker_boost: true },
@@ -36,8 +37,8 @@ const VOICE_SETTINGS = {
   instruction:   { stability: 0.20, similarity_boost: 0.55, style: 0.50, use_speaker_boost: true }
 };
 
-/* ---- Phrases: exact text + intended style (paragraphs & questions ONLY) ---- */
-const phrases = [
+/* ---- Base lesson phrases ---- */
+const basePhrases = [
   { text: "Leo and Emma are playing a board game. Emma needs to roll a 7, but a standard die only shows the numbers 1 to 6. She could roll all day and a 7 would show up exactly 0 times. Yet she is 100 percent sure to roll a number from 1 to 6!", style: "statement" },
   { text: "How can we use numbers to measure events that never happen and events that always happen?", style: "question" },
   { text: "Will it rain tomorrow? Will your team win? Will a coin land on heads? Every day we talk about chance using words like never, maybe, and always. Probability is the part of maths that measures how likely an event is to happen, using numbers.", style: "statement" },
@@ -77,6 +78,23 @@ const phrases = [
   { text: "Congratulations! You've mastered impossible events, certain events, and the probability line from 0 to 1!", style: "statement" }
 ];
 
+/* Collect all question prompts and explanations from 10 worlds */
+const phrases = [...basePhrases];
+const seenTexts = new Set(basePhrases.map(p => p.text));
+
+Object.values(WORLD_QUESTIONS).forEach(questions => {
+  questions.forEach(q => {
+    if (q.prompt && !seenTexts.has(q.prompt)) {
+      seenTexts.add(q.prompt);
+      phrases.push({ text: q.prompt, style: "question" });
+    }
+    if (q.explanation && !seenTexts.has(q.explanation)) {
+      seenTexts.add(q.explanation);
+      phrases.push({ text: q.explanation, style: "statement" });
+    }
+  });
+});
+
 /* ---------------------------------------------------------------------- */
 function loadApiKey() {
   if (process.env.VITE_ELEVENLABS_API_KEY) return process.env.VITE_ELEVENLABS_API_KEY;
@@ -99,8 +117,6 @@ function slugify(text) {
     .join('_');
 }
 
-// Deterministic short hash of everything that affects the audio, so an
-// existing file is only reused when text, style, voice and model all match.
 function shortHash(str) {
   let h = 5381;
   for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) | 0;
@@ -134,6 +150,8 @@ async function main() {
     process.exit(1);
   }
   fs.mkdirSync(AUDIO_DIR, { recursive: true });
+
+  console.log(`Starting audio generation for ${phrases.length} phrases using voice ${VOICE_ID}...`);
 
   const map = {};
   let generated = 0, reused = 0, failed = 0;
